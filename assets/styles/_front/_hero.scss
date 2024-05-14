@@ -4,7 +4,7 @@ body {
 
 
 .full-w {
-  width: 90vw;
+  width: 90%;
 }
 
 .centered {
@@ -46,6 +46,8 @@ body {
 .hero h1,
 .hero h2 {
   text-align: left;
+
+  line-height: 1.75rem;
 }
 
 .hero h1 {
@@ -136,6 +138,7 @@ footer {
   display: flex;
   flex-direction: row;
   align-self: center;
+  align-items: center;
 }
 
 footer ul {
