@@ -127,7 +127,7 @@ class IndexController
         $lines = $this->lineRepository->getAllUserLines($this->user->getId());
 
         $email = (new TemplatedEmail())
-            ->from('info@medocs.be')
+            ->from('info+medocs@exempl.es')
             ->to($request->request->get('share_list')['email'])
             //->cc('cc@medocs.be')
             //->bcc('bcc@medocs.be')

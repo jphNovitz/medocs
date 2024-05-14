@@ -163,7 +163,7 @@ class UserController
 
                     // send email
                     $email = (new TemplatedEmail())
-                        ->from('info@medocs.be')
+                        ->from('info+medocs@exempl.es')
                         ->to($user->getEmail())
                         ->subject('Suppression de votre compte')
                         ->htmlTemplate('emails/user/delete-confirmation.html.twig')
