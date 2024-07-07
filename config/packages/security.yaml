@@ -3,6 +3,10 @@ security:
 #        Symfony\Component\Security\Core\User\User: auto
         App\Entity\User:
             algorithm: auto
+    enable_authenticator_manager: true
+    password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+            Symfony\Component\Security\Core\User\InMemoryUser: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -10,10 +14,9 @@ security:
 
         app_backend_provider:
             memory:
-#                users:
-#                    user:
-#                        password: 'pwd"
-#                        roles: ['ROLE_ADMIN','ROLE_USER']
+                users:
+                    novitz@gmail.com: { password: '%env(MEMORY_USER)%', roles: ['ROLE_ADMIN','ROLE_USER'] }
+
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -28,7 +31,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            #anonymous: true
             lazy: true
             provider: all_users
             guard:
