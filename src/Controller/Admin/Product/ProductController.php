@@ -45,8 +45,6 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'admin_product_new')]
     public function new(Request $request): Response
     {
-//        $referer =  $request->headers->get('referer');
-
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
 
@@ -65,7 +63,7 @@ class ProductController extends AbstractController
 //                    $this->session->remove('referer');
 //                    return $this->redirectToRoute($referer);
 //                } else
-                $referer = $request->headers->get('referer');
+//                $referer = $request->headers->get('referer');
 
                 // Vérifier si le referer existe et rediriger
                 $previousPage = $request->getSession()->get('previous_page', $this->generateUrl('admin_product_new'));
