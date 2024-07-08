@@ -8,142 +8,78 @@
 namespace App\Controller\Admin\Product;
 
 use App\Entity\Line;
-use App\Entity\Product;
-use App\Entity\User;
 use App\Form\DeleteFormType;
 use App\Form\LineType;
-use App\Form\ProductType;
 use App\Repository\LineRepository;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\ORMException;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 
-class ListController 
+#[Route('/admin/list')]
+class ListController extends AbstractController
 {
-    protected $em;
+    public function __construct(private EntityManagerInterface $entityManager,
+                                private LineRepository         $lineRepositoryRepository,
+                                private UserRepository         $userRepository,
+                                private Security               $security,
+                                private RequestStack           $requestStack)
+    {}
 
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-    /**
-     * @var FlashBagInterface
-     */
-    private $flashBag;
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-    /**
-     * @var LineRepository
-     */
-    private $lineRepositoryRepository;
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    public function __construct(EntityManagerInterface $entityManager,
-                                LineRepository $lineRepositoryRepository,
-                                UserRepository $userRepository,
-                                Security $security,
-                                \Twig\Environment $twig,
-                                FormFactoryInterface $formFactory,
-                                FlashBagInterface $flashBag,
-                                RouterInterface $router, 
-                                RequestStack $requestStack)
-    {
-        $this->em = $entityManager;
-        $this->lineRepositoryRepository = $lineRepositoryRepository;
-        $this->twig = $twig;
-        $this->formFactory = $formFactory;
-        $this->flashBag = $flashBag;
-        $this->router = $router;
-        $this->security = $security;
-        $this->userRepository = $userRepository;
-        $this->requestStack = $requestStack;
-    }
-
-    /**
-     * @Route("/admin/list", name="admin_line_index")
-     */
+    #[Route('', name: "admin_line_index")]
     public function index(): Response
     {
         if (!$list = $this->lineRepositoryRepository->getAll())
-            return new RedirectResponse($this->router->generate('admin_line_new'));
+            return $this->RedirectToRoute('admin_line_new');
 
-        return new Response ($this->twig->render('admin/product/list/index.html.twig', [
+        return $this->Render('admin/product/list/index.html.twig', [
             'list' => $list
-        ]));
+        ]);
     }
 
-    /**
-     * @Route("/admin/list/new", name="admin_line_new")
-     */
+    #[Route('/new', name: "admin_line_new")]
     public function new(Request $request): Response
     {
         $this->requestStack->getCurrentRequest()->getSession()->remove('referer');
         $line = new Line();
-        $form = $this->formFactory->create(LineType::class, $line);
+        $form = $this->createForm(LineType::class, $line);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {;
+            try {
                 $line->setUser($this->userRepository->findOneBy([
-                    'id'=>$this->security->getUser()->getId()
+                    'id' => $this->security->getUser()->getId()
                 ]));
-                $this->em->persist($line);
-                $this->em->flush();
-                $this->flashBag->add('success', 'Ligne ajouté');
+                $this->entityManager->persist($line);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'Ligne ajouté');
 
-                return new RedirectResponse($this->router->generate('admin_line_new'));
+                return $this->RedirectToRoute('admin_line_new');
 
-            } catch (ORMException $e) {
+            } catch (DriverException $e) {
                 die;
             }
         }
 
-        return new Response($this->twig->render('admin/product/list/new.html.twig', [
+        return $this->Render('admin/product/list/new.html.twig', [
             'form' => $form->createView()
-        ]));
+        ]);
     }
 
-
-    /**
-     * @Route("/admin/list/{id}/update",
-     *     name="admin_line_update",
-     *     methods={"GET", "PUT"})
-     */
+    #[Route('/{id}/update', name: "admin_line_update", methods: ["GET", "PUT"])]
     public function update(Request $request, Line $line = null): Response
     {
         if (!$line) {
-            $this->flashBag->add('error', 'N\'existe pas');
-            return new RedirectResponse($this->router->generate("admin_line_index"));
+            $this->$this->addFlash('error', 'N\'existe pas');
+            return $this->RedirectToRoute("admin_line_index");
         }
-        $form = $this->formFactory->create(LineType::class, $line, [
+        $form = $this->createForm(LineType::class, $line, [
             'method' => 'PUT'
         ]);
 
@@ -151,56 +87,52 @@ class ListController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $this->em->flush();
-                $this->flashBag->add('success', 'modifié');
+                $this->entityManager->flush();
+                $this->$this->addFlash('success', 'modifié');
 
-                return new RedirectResponse($this->router->generate("admin_line_index"));
+                return $this->RedirectToRoute("admin_line_index");
 
-            } catch (ORMException $ORMException) {
+            } catch (DriverException $ORMException) {
                 die('erreur');
             }
         }
 
-        return new Response($this->twig->render('admin/product/list/update.html.twig', [
+        return $this->Render('admin/product/list/update.html.twig', [
             'form' => $form->createView(),
-        ]));
+        ]);
     }
 
-    /**
-     * @Route("/admin/list/{id}/delete",
-     *     name="admin_line_delete",
-     *     methods={"GET", "DELETE"})
-     */
+    #[Route('/{id}/delete', name: "admin_line_delete", methods: ["GET", "DELETE"])]
     public function delete(Request $request, Line $line = null): Response
     {
         if (!$line) {
-            $this->flashBag->add('error', 'N\'existe pas');
-            return new RedirectResponse($this->router->generate("admin_line_index"));
+            $this->$this->addFlash('error', 'N\'existe pas');
+            return $this->RedirectToRoute("admin_line_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $line->getName() . ' ?'];
-        $form = $this->formFactory->create(DeleteFormType::class, $defaultData);
+        $form = $this->createForm(DeleteFormType::class, $defaultData);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('yes')->isClicked()):
                 try {
-                    $this->em->remove($line);
-                    $this->em->flush();
-                    $this->flashBag->add('success', 'supprimé');
-                    return new RedirectResponse($this->router->generate("admin_line_index"));
-                } catch (ORMException $ORMException) {
+                    $this->entityManager->remove($line);
+                    $this->entityManager->flush();
+                    $this->$this->addFlash('success', 'supprimé');
+                    return $this->RedirectToRoute("admin_line_index");
+                } catch (DriverException $exception) {
                     die('erreur');
                 }
             else:
-                $this->flashBag->add('notice', 'annulé');
+                $this->$this->addFlash('notice', 'annulé');
 
-                return new RedirectResponse($this->router->generate("admin_line_index"));
+                return $this->RedirectToRoute("admin_line_index");
             endif;
         }
-        return new Response($this->twig->render('admin/product/list/delete.html.twig', [
+        return $this->Render('admin/product/list/delete.html.twig', [
             'form' => $form->createView()
-        ]));
+        ]);
     }
 }
