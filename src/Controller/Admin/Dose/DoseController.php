@@ -23,9 +23,6 @@ class DoseController extends AbstractController
                                 private DoseRepository         $doseRepository)
     {}
 
-    /**
-     * @Route("/admin/dose", name="admin_dose_index")
-     */
     #[Route('', name: 'admin_dose_index', methods: ['GET'])]
     public function index(): Response
     {
@@ -34,7 +31,7 @@ class DoseController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'admin_dose_create', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'admin_dose_new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
 
