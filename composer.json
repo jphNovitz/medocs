@@ -29,17 +29,20 @@
         "symfony/monolog-bundle": "^3.7",
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/security-bundle": "5.4.*",
+        "symfony/security-core": "5.4.*",
+        "symfony/security-csrf": "5.4.*",
+        "symfony/security-http": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "^5.3",
         "symfony/validator": "5.4.*",
         "symfony/var-dumper": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.4.*",
-        "symfonycasts/reset-password-bundle": "^1.9",
-        "symfonycasts/verify-email-bundle": "^1.5",
+        "symfonycasts/reset-password-bundle": "^1.22",
+        "symfonycasts/verify-email-bundle": "^1.17",
         "twig/cssinliner-extra": "^3.3",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "3.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
