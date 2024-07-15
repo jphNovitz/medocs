@@ -22,10 +22,10 @@
                     <td >
                         {{ item.product.name }}
                     </td>
-                    <td class="qty">{{ item.qty }}</td>
-                    <td class="day">{{ item.day }}</td>
-                    <td class="freq">{{ item.dose.frequency.name }}</td>
-                    <td class="moment">{{ item.dose.moment.name }}</td>
+                    <td class="qty">{{ item.qty|default('N/A') }}</td>
+                    <td class="day">{{ item.day|default('N/A') }}</td>
+                    <td class="freq">{{ item.dose.frequency.name|default('N/A') }}</td>
+                    <td class="moment">{{ item.dose.moment.name|default('N/A') }}</td>
                     {% block actions %}
                         <td>
                             <a href="{{ path('admin_line_update', {'id': item.id}) }}" class="text-info"> <i
