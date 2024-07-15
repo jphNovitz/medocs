@@ -7,44 +7,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=LineRepository::class)
- */
+#[ORM\Entity(repositoryClass: LineRepository::class)]
 class Line
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Dose", inversedBy="line")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Dose", inversedBy: "line")]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $dose;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Product")]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $product;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lines")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "lines")]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private $user;
 
-    /**
-     * @ORM\Column(type="float", nullable=true, scale=1)
-     */
+    #[ORM\Column(type: "float", nullable: true, scale: 1)]
     private $qty;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Day")
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Day")]
     private $day;
 
     public function __construct()
@@ -111,7 +97,6 @@ class Line
         return $this->user;
     }
 
-
     public function removeUser(User $user): self
     {
         $this->user->removeElement($user);
@@ -138,6 +123,4 @@ class Line
 
         return $this;
     }
-
-
 }

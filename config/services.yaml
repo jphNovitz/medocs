@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+    user_dev_pwd: '%env(USER_DEV_PWD)%'
+    admin_dev_pwd: '%env(ADMIN_DEV_PWD)%'
 services:
     # default configuration for services in *this* file
     _defaults:

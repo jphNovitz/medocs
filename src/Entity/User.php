@@ -12,58 +12,38 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private $password;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Line", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: 'App\Entity\Line', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private $lines;
 
-    /**
-     * @ORM\Column(type="string", length=125, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 125, nullable: true)]
     private $url;
 
-
-    /**
-     * @Gedmo\Slug(fields={"url"}, separator="_")
-     * @ORM\Column(length=255, unique=true, nullable=true)
-     */
+    #[Gedmo\Slug(fields: ['url'], separator: '_')]
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
     private $slug;
 
     public function __construct()
@@ -88,23 +68,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -117,9 +88,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -132,24 +100,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
-     */
     public function getSalt(): ?string
     {
         return null;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function isVerified(): bool
@@ -169,9 +126,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    /**
-     * @return Collection|Line[]
-     */
     public function getLines(): Collection
     {
         return $this->lines;
@@ -218,10 +172,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
     public function getUserIdentifier(): string
     {
-        return $this->email; // ou tout autre champ unique que vous utilisez pour identifier l'utilisateur
+        return $this->email;
     }
 
 }
