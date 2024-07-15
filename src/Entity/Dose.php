@@ -7,42 +7,28 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=DoseRepository::class)
- */
+#[ORM\Entity(repositoryClass: DoseRepository::class)]
 class Dose
 {
     public function __toString()
     {
-       return $this->frequency->getName()." - ".$this->moment->getName();
+        return $this->frequency->getName()." - ".$this->moment->getName();
     }
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id;
 
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Frequency", inversedBy="dose")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     *
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Frequency", inversedBy: "dose")]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $frequency;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Moment", inversedBy="dose")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     *
-     */
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Moment", inversedBy: "dose")]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $moment;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Line", mappedBy="dose", orphanRemoval=true, cascade={"remove"})
-     */
+    #[ORM\OneToMany(targetEntity: "App\Entity\Line", mappedBy: "dose", orphanRemoval: true, cascade: ["remove"])]
     private $line;
 
     public function __construct()
@@ -79,7 +65,8 @@ class Dose
         return $this;
     }
 
-    public function getName(){
+    public function getName()
+    {
         $name = '';
         if ($this->getFrequency()) $name .= $this->getFrequency()->getName()." ";
         if ($this->getMoment()) $name .= $this->getMoment()->getName();
@@ -115,5 +102,4 @@ class Dose
 
         return $this;
     }
-
 }
