@@ -13,12 +13,12 @@ security:
         memory_users:
             memory:
                 users:
-                    user_dev@exempl.es:
+                    '%user_dev_mail%':
                         password: '%user_dev_pwd%'
                         roles: 'ROLE_USER'
-                    admin_dev@exempl.es:
+                    '%admin_dev_mail%':
                         password: '%admin_dev_pwd%'
-                        roles: 'ROLE_ADMIN'
+                        roles: ['ROLE_ADMIN']
         chain_provider:
             chain:
                 providers: [ database_users, memory_users ]

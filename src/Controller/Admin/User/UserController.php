@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -108,7 +109,7 @@ class UserController extends AbstractController
 
                     // send email
                     $email = (new TemplatedEmail())
-                        ->from('info+medocs@exempl.es')
+                        ->from(new Address($this->getParameter('system_mail'), 'Jeanphi de Medocs.be'))
                         ->to($user->getEmail())
                         ->subject('Suppression de votre compte')
                         ->htmlTemplate('emails/user/delete-confirmation.html.twig')
