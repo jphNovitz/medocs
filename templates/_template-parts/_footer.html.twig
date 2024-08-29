@@ -1,12 +1,39 @@
 {% block footer %}
-    <footer>
-        <h6><a href="https://pixelservices.be/">Pixelseervices.be</a> by  <a href="https://jphnovitz.be">Novitz Jean-Philippe, développeur web à Liège </a> 2021 &nbsp; ~ &nbsp;</h6>
-        <ul>
-            <li>
-                <a href="https://github.com/jphNovitz"> <i class="fab fa-github"></i> </a> ~
-                <a href="https://instagram.com/pixelservices.be"> <i class="fab fa-instagram"></i> </a> ~
-                <a href="https://facebook.com/pixelservices.be"> <i class="fab fa-facebook-square"></i> </a>
-            </li>
-        </ul>
+    <footer class="p-4 bg-surface-light/50 dark:bg-surface-dark/50 md:p-8 lg:p-10 ">
+        <div class="mx-auto max-w-screen-xl text-center">
+            <a href="#" class="flex justify-center items-center text-2xl font-semibold text-content-primary-light dark:text-content-primary-dark">
+                <svg xmlns="http://www.w3.org/2000/svg"  class="mr-2 h-6" fill="none" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                    <path fill="url(&quot;#SvgjsLinearGradient1076&quot;)" fill-rule="evenodd" d="M3 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM3 12a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM3 19a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" clip-rule="evenodd"></path><defs><linearGradient gradientTransform="rotate(0 0.5 0.5)" id="SvgjsLinearGradient1076"><stop stop-opacity=" 1" stop-color="rgba(105, 234, 203)" offset="0"></stop><stop stop-opacity=" 1" stop-color="rgba(234, 204, 248)" offset="0.48"></stop><stop stop-opacity=" 1" stop-color="rgba(102, 84, 241)" offset="1"></stop></linearGradient></defs></svg>
+                Medocs.be
+            </a>
+            <p class="my-6 text-content-primary-light/70 dark:text-content-primary-dark/70">{% trans %} footer.pitch {% endtrans %}</p>
+            <ul class="flex flex-wrap justify-center items-center mb-6 text-content-primary-light dark:text-content-primary-dark ">
+                <li>
+                    <a href="{{ path('public_index') }}" class="mr-4 hover:underline md:mr-6 ">Accueil</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_register') }}" class="mr-4 hover:underline md:mr-6">Inscription</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_login') }}" class="mr-4 hover:underline md:mr-6 ">Connexion</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Contact</a>
+                </li>
+            </ul>
+            <span class="text-sm sm:text-center text-content-primary-light/40 dark:text-content-primary-dark/40">
+                © 2021-{{ 'now' | date('Y') }} <a href="https://pixelservices.be" class="hover:underline">Pixelservice</a>. Développements de sites et d'outils web.
+            </span>
+        </div>
     </footer>
+{#    <footer>#}
+{#        <h6><a href="https://pixelservices.be/">Pixelseervices.be</a> by  <a href="https://jphnovitz.be">Novitz Jean-Philippe, développeur web à Liège </a> 2021 &nbsp; ~ &nbsp;</h6>#}
+{#        <ul>#}
+{#            <li>#}
+{#                <a href="https://github.com/jphNovitz"> <i class="fab fa-github"></i> </a> ~#}
+{#                <a href="https://instagram.com/pixelservices.be"> <i class="fab fa-instagram"></i> </a> ~#}
+{#                <a href="https://facebook.com/pixelservices.be"> <i class="fab fa-facebook-square"></i> </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </footer>#}
 {% endblock %}
