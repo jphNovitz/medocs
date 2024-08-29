@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Public_;
+namespace App\Controller\Landing;
 
 use App\Entity\Line;
 use App\Entity\User;
@@ -21,15 +21,15 @@ class IndexController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('member_index');
         }
-        return $this->render('public/index/index.html.twig', []);
+        return $this->render('landing/index.html.twig', []);
     }
 
     #[Route('/g/{slug}', name: 'public_page')]
     public function publicUrl(User $user): Response
     {
-        return $this->render('public/index/list.html.twig', [
+        return $this->render('landing/list.html.twig', [
             'list' => $user->getLines(),
         ]);
     }
@@ -37,7 +37,7 @@ class IndexController extends AbstractController
     #[Route('/condition-utilisation', name: 'public_condition_use_fr')]
     public function condition_use(): Response
     {
-        return $this->render('public/index/conditions-use_fr.html.twig');
+        return $this->render('landing/conditions-use_fr.html.twig');
     }
 
 
@@ -46,7 +46,7 @@ class IndexController extends AbstractController
     public function faq(): Response
     {
         die;
-//        return $this->render('public/index/faq_fr.html.twig');
+//        return $this->render('landing/faq_fr.html.twig');
     }
 
 }
