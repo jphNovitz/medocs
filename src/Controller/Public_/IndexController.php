@@ -4,6 +4,7 @@ namespace App\Controller\Public_;
 
 use App\Entity\Line;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,14 +40,13 @@ class IndexController extends AbstractController
         return $this->render('public/index/conditions-use_fr.html.twig');
     }
 
-//    /**
-//     * @Route("/foire-aux-questions", name="public_faq_fr")
-//     */
-//    #[Route('/foire-aux-questions', name: 'public_faq_fr')]
-//
-//    public function faq(): Response
-//    {
+
+    #[Route('/foire-aux-questions', name: 'public_faq_fr')]
+
+    public function faq(): Response
+    {
+        die;
 //        return $this->render('public/index/faq_fr.html.twig');
-//    }
+    }
 
 }

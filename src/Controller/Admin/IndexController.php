@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -58,9 +59,8 @@ class IndexController extends AbstractController
     public function sendMyUrl(MailerInterface $mailer, Request $request): Response
     {
         $lines = $this->lineRepository->getAllUserLines($this->user->getId());
-
         $email = (new TemplatedEmail())
-            ->from('info+medocs@exempl.es')
+            ->from(new Address($this->getParameter('system_mail'), 'Jeanphi de Medocs.be'))
             ->to($request->request->get('share_list')['email'])
             //->cc('cc@medocs.be')
             //->bcc('bcc@medocs.be')
