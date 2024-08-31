@@ -4,7 +4,7 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin\Dose;
+namespace App\Controller\Member\Dose;
 
 use App\Entity\Dose;
 use App\Form\DeleteFormType;
@@ -23,7 +23,7 @@ class DoseController extends AbstractController
                                 private DoseRepository         $doseRepository)
     {}
 
-    #[Route('', name: 'admin_dose_index', methods: ['GET'])]
+    #[Route('', name: 'member_dose_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('admin/dose/dose/index.html.twig', [
@@ -31,7 +31,7 @@ class DoseController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'admin_dose_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'member_dose_new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
 
@@ -46,7 +46,7 @@ class DoseController extends AbstractController
 
                 $this->addFlash('success', 'ajouté');
 
-                $previousPage = $request->getSession()->get('previous_page', $this->generateUrl('admin_dose_new'));
+                $previousPage = $request->getSession()->get('previous_page', $this->generateUrl('member_dose_new'));
                 $request->getSession()->remove('previous_page');
 
         }
@@ -55,13 +55,13 @@ class DoseController extends AbstractController
         ]);
     }
     
-    #[Route('/{id}/update', name: 'admin_dose_update', methods: ['GET', 'PUT'])]
+    #[Route('/{id}/update', name: 'member_dose_update', methods: ['GET', 'PUT'])]
     public function update(Request $request, Dose $dose = null): Response
     {
         if (!$dose) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->redirectToRoute("admin_dose_index");
+            return $this->redirectToRoute("member_dose_index");
         }
 
         $form = $this->createForm(DoseType::class, $dose, [
@@ -75,20 +75,20 @@ class DoseController extends AbstractController
 
                 $this->addFlash('success', 'modifié');
 
-                return $this->redirectToRoute("admin_dose_index");
+                return $this->redirectToRoute("member_dose_index");
         }
         return $this->render('admin/dose/dose/update.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'admin_dose_delete', methods: ['GET', 'DELETE'])]
+    #[Route('/{id}/delete', name: 'member_dose_delete', methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Dose $dose= null): Response
     {
         if (!$dose) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->redirectToRoute("admin_dose_index");
+            return $this->redirectToRoute("member_dose_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $dose . ' ?'];
@@ -103,10 +103,10 @@ class DoseController extends AbstractController
                     $this->em->flush();
 
                     $this->addFlash('success', 'supprimé');
-                    return $this->redirectToRoute("admin_dose_index");
+                    return $this->redirectToRoute("member_dose_index");
             else:
                 $this->addFlash('notice', 'annulé');
-                return $this->redirectToRoute("admin_dose_index");
+                return $this->redirectToRoute("member_dose_index");
             endif;
         }
         return $this->render('admin/dose/dose/delete.html.twig', [

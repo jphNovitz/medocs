@@ -4,11 +4,13 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin;
+namespace App\Controller\Member;
 
+use App\Entity\User;
 use App\Form\ShareListType;
 use App\Form\UrlType;
 use App\Repository\LineRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,42 +22,61 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-#[Route('/admin')]
+#[Route('/member')]
 class IndexController extends AbstractController
 {
 
     public function __construct(private EntityManagerInterface $entityManager,
-                                private LineRepository $lineRepository,
-                                Security $security)
+                                private LineRepository $lineRepository)
     {
     }
 
-#[Route('/', name:'admin_index')]
-    public function index(): Response
+#[Route('/', name:'member_index')]
+    public function index(Request $request): Response
     {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id'=> $this->getUser()]);
         $products = $this->lineRepository->getAllUserLines($this->getUser());;
 
-        $url_form = $this->createForm(UrlType::class);
-        $send_form = $this->createForm(ShareListType::class);
+        $urlForm = $this->createForm(UrlType::class, null, [
+            'url' => $this->getUser()->getUrl()
+        ]);
 
-        return $this->render('admin/index.html.twig', [
+        $urlForm->handleRequest($request);
+
+        if ($urlForm->isSubmitted() && $urlForm->isValid()) {
+            $user->setUrl( $urlForm->get('url')->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'URL mise à jour avec succès.');
+            return $this->redirectToRoute('member_index');
+        }
+
+        $sendForm = $this->createForm(ShareListType::class);
+
+        if ($sendForm->isSubmitted() && $urlForm->isValid()) {
+            die('to do send email');
+            $this->addFlash('success', 'URL mise à jour avec succès.');
+            return $this->redirectToRoute('member_index');
+        }
+
+        return $this->render('member/index.html.twig', [
             'list' => $products,
-            'url_form' => $url_form->createView(),
-            'send_form' => $send_form->createView()
+            'url_form' => $urlForm,
+            'send_form' => $sendForm->createView()
         ]);
     }
 
-    #[Route('/url', name:'admin_index_url')]
+    #[Route('/url', name:'member_index_url')]
     public function updateUrl(Request $request): Response
     {
         $this->getUser()->setUrl($request->request->get('url')['url']);
         $this->entityManager->flush();
 
         $this->addFlash('success', 'url modifiée');
-        return  $this->redirectToRoute('admin_index');
+        return  $this->redirectToRoute('member_index');
     }
 
-    #[Route('/send', name:'admin_index_send_email')]
+    #[Route('/send', name:'member_index_send_email')]
     public function sendMyUrl(MailerInterface $mailer, Request $request): Response
     {
         $lines = $this->lineRepository->getAllUserLines($this->user->getId());
@@ -76,7 +97,7 @@ class IndexController extends AbstractController
         try {
             $mailer->send($email);
             $this->addFlash('success', 'email envoyé');
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('member_index');
         } catch (TransportExceptionInterface $exception) {
             die('error');
         }

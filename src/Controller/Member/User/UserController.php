@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\User;
+namespace App\Controller\Member\User;
 
 use App\Entity\User;
 use App\Form\DeleteFormType;
@@ -35,7 +35,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route('profile/update', name: "admin_profile_update", methods: ['GET', 'PUT'])]
+    #[Route('profile/update', name: "member_profile_update", methods: ['GET', 'PUT'])]
     public function updateInfos(Request $request): Response
     {
         $user = $this->getUser();
@@ -72,7 +72,7 @@ class UserController extends AbstractController
                 $this->em->flush();
                 $this->addFlash('success', 'modifié');
 
-                return $this->redirectToRoute("admin_profile_update");
+                return $this->redirectToRoute("member_profile_update");
             } catch (DriverException $exception) {
                 // Log erreur
 
@@ -80,7 +80,7 @@ class UserController extends AbstractController
                 $this->addFlash('error', 'Une erreur est survenue lors de la mise à jour du profil. Veuillez réessayer.');
 
                 // Rediriger vers la même page ou une page d'erreur
-                return $this->redirectToRoute("admin_profile_update");
+                return $this->redirectToRoute("member_profile_update");
             }
         }
         return $this->render('admin/profile/update-infos.html.twig', [
@@ -88,7 +88,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('profile/delete', name: "admin_profile_delete", methods: ['GET', 'DELETE'])]
+    #[Route('profile/delete', name: "member_profile_delete", methods: ['GET', 'DELETE'])]
     public function delete(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $form = $this->createForm(DeleteFormType::class);
@@ -125,7 +125,7 @@ class UserController extends AbstractController
                 } catch (DriverException $ORMException) {
                     dd($ORMException);
                 }
-            } else return $this->redirectToRoute('admin_profile_update');
+            } else return $this->redirectToRoute('member_profile_update');
         }
         return $this->render('admin/profile/delete.html.twig', [
             'form' => $form->createView()

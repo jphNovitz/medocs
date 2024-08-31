@@ -4,7 +4,7 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin\Dose;
+namespace App\Controller\Member\Dose;
 
 
 use App\Entity\Frequency;
@@ -25,7 +25,7 @@ class FrequencyController extends AbstractController
     {
     }
 
-    #[Route('', name: 'admin_frequency_index')]
+    #[Route('', name: 'member_frequency_index')]
     public function index(): Response
     {
         return $this->render('admin/dose/frequency/index.html.twig', [
@@ -33,7 +33,7 @@ class FrequencyController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: 'admin_frequency_create', methods: ['GET', 'POST'])]
+    #[Route('/create', name: 'member_frequency_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         $frequency = new Frequency();
@@ -47,20 +47,20 @@ class FrequencyController extends AbstractController
 
             $this->addFlash('success', 'ajouté');
 
-            return $this->redirectToRoute("admin_frequency_index");
+            return $this->redirectToRoute("member_frequency_index");
         }
         return $this->render('admin/dose/frequency/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'admin_frequency_edit', methods: ['GET', 'PUT'])]
+    #[Route('/{id}/edit', name: 'member_frequency_edit', methods: ['GET', 'PUT'])]
     public function update(Request $request, Frequency $frequency = null): Response
     {
         if (!$frequency) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->redirectToRoute("admin_frequency_index");
+            return $this->redirectToRoute("member_frequency_index");
         }
 
         $form = $this->createForm(FrequencyType::class, $frequency, [
@@ -73,21 +73,21 @@ class FrequencyController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', 'modifié');
 
-            return $this->redirectToRoute("admin_frequency_index");
+            return $this->redirectToRoute("member_frequency_index");
         }
         return $this->render('admin/dose/frequency/update.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'admin_frequency_delete', methods: ['GET', 'DELETE'])]
+    #[Route('/{id}/delete', name: 'member_frequency_delete', methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Frequency $frequency = null): Response
     {
 
         if (!$frequency) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->redirectToRoute("admin_frequency_index");
+            return $this->redirectToRoute("member_frequency_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $frequency->getName() . ' ?'];
@@ -101,10 +101,10 @@ class FrequencyController extends AbstractController
                 $this->entityManager->flush();
                 $this->addFlash('success', 'supprimé');
 
-                return $this->redirectToRoute("admin_frequency_index");
+                return $this->redirectToRoute("member_frequency_index");
             else:
                 $this->addFlash('notice', 'annulé');
-                return $this->redirectToRoute("admin_frequency_index");
+                return $this->redirectToRoute("member_frequency_index");
             endif;
         }
         return $this->render('admin/dose/frequency/delete.html.twig', [

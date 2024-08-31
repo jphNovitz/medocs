@@ -5,7 +5,7 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin\Product;
+namespace App\Controller\Member\Product;
 
 use App\Entity\Line;
 use App\Form\DeleteFormType;
@@ -31,18 +31,18 @@ class ListController extends AbstractController
                                 private RequestStack           $requestStack)
     {}
 
-    #[Route('', name: "admin_line_index")]
+    #[Route('', name: "member_line_index")]
     public function index(): Response
     {
         if (!$list = $this->lineRepositoryRepository->getAll())
-            return $this->RedirectToRoute('admin_line_new');
+            return $this->RedirectToRoute('member_line_new');
 
         return $this->Render('admin/product/list/index.html.twig', [
             'list' => $list
         ]);
     }
 
-    #[Route('/new', name: "admin_line_new")]
+    #[Route('/new', name: "member_line_new")]
     public function new(Request $request): Response
     {
         $this->requestStack->getCurrentRequest()->getSession()->remove('referer');
@@ -60,7 +60,7 @@ class ListController extends AbstractController
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Ligne ajouté');
 
-                return $this->RedirectToRoute('admin_line_new');
+                return $this->RedirectToRoute('member_line_new');
 
             } catch (DriverException $e) {
                 die;
@@ -72,12 +72,12 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/update', name: "admin_line_update", methods: ["GET", "PUT"])]
+    #[Route('/{id}/update', name: "member_line_update", methods: ["GET", "PUT"])]
     public function update(Request $request, Line $line = null): Response
     {
         if (!$line) {
             $this->$this->addFlash('error', 'N\'existe pas');
-            return $this->RedirectToRoute("admin_line_index");
+            return $this->RedirectToRoute("member_line_index");
         }
         $form = $this->createForm(LineType::class, $line, [
             'method' => 'PUT'
@@ -90,7 +90,7 @@ class ListController extends AbstractController
                 $this->entityManager->flush();
                 $this->$this->addFlash('success', 'modifié');
 
-                return $this->RedirectToRoute("admin_line_index");
+                return $this->RedirectToRoute("member_line_index");
 
             } catch (DriverException $ORMException) {
                 die('erreur');
@@ -102,12 +102,12 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: "admin_line_delete", methods: ["GET", "DELETE"])]
+    #[Route('/{id}/delete', name: "member_line_delete", methods: ["GET", "DELETE"])]
     public function delete(Request $request, Line $line = null): Response
     {
         if (!$line) {
             $this->$this->addFlash('error', 'N\'existe pas');
-            return $this->RedirectToRoute("admin_line_index");
+            return $this->RedirectToRoute("member_line_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $line->getName() . ' ?'];
@@ -121,14 +121,14 @@ class ListController extends AbstractController
                     $this->entityManager->remove($line);
                     $this->entityManager->flush();
                     $this->$this->addFlash('success', 'supprimé');
-                    return $this->RedirectToRoute("admin_line_index");
+                    return $this->RedirectToRoute("member_line_index");
                 } catch (DriverException $exception) {
                     die('erreur');
                 }
             else:
                 $this->$this->addFlash('notice', 'annulé');
 
-                return $this->RedirectToRoute("admin_line_index");
+                return $this->RedirectToRoute("member_line_index");
             endif;
         }
         return $this->Render('admin/product/list/delete.html.twig', [

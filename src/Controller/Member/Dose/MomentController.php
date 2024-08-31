@@ -4,7 +4,7 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin\Dose;
+namespace App\Controller\Member\Dose;
 
 use App\Entity\Moment;
 use App\Form\DeleteFormType;
@@ -24,7 +24,7 @@ class MomentController extends AbstractController
     {
     }
 
-    #[Route('', name: 'admin_moment_index', methods: ['GET'])]
+    #[Route('', name: 'member_moment_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('admin/dose/moment/index.html.twig', [
@@ -32,7 +32,7 @@ class MomentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'admin_moment_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'member_moment_new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
 
@@ -47,7 +47,7 @@ class MomentController extends AbstractController
 
             $this->addFlash('success', 'ajouté');
 
-            return $this->redirectToRoute("admin_moment_index");
+            return $this->redirectToRoute("member_moment_index");
         }
         return $this->render('admin/dose/moment/create.html.twig', [
             'form' => $form->createView(),
@@ -56,17 +56,17 @@ class MomentController extends AbstractController
 
     /**
      * @Route("/admin/dose/moment/{id}/update",
-     *     name="admin_moment_update",
+     *     name="member_moment_update",
      *     methods={"GET", "PUT"})
      */
-    #[Route('/{id}/edit', name: 'admin_moment_edit', methods: ['GET', 'PUT'])]
+    #[Route('/{id}/edit', name: 'member_moment_edit', methods: ['GET', 'PUT'])]
     public function update(Request $request, Moment $moment = null): Response
     {
 
         if (!$moment) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->redirectToRoute("admin_moment_index");
+            return $this->redirectToRoute("member_moment_index");
         }
 
         $form = $this->createForm(MomentType::class, $moment, [
@@ -80,7 +80,7 @@ class MomentController extends AbstractController
 
             $this->addFlash('success', 'modifié');
 
-            return $this->redirectToRoute("admin_moment_index");
+            return $this->redirectToRoute("member_moment_index");
         }
         return $this->render('admin/dose/moment/update.html.twig', [
             'form' => $form->createView(),
@@ -89,15 +89,15 @@ class MomentController extends AbstractController
 
     /**
      * @Route("/admin/dose/moment/{id}/delete",
-     *     name="admin_moment_delete",
+     *     name="member_moment_delete",
      *     methods={"GET", "DELETE"})
      */
-    #[Route('/{id}/delete', name: 'admin_moment_delete', methods: ['GET', 'DELETE'])]
+    #[Route('/{id}/delete', name: 'member_moment_delete', methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Moment $moment = null): Response
     {
         if (!$moment) {
             $this->addFlash('error', 'N\'existe pas');
-            return $this->redirectToRoute("admin_moment_index");
+            return $this->redirectToRoute("member_moment_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $moment->getName() . ' ?'];
@@ -110,11 +110,11 @@ class MomentController extends AbstractController
                 $this->em->flush();
                 $this->addFlash('success', 'supprimé');
 
-                return $this->redirectToRoute("admin_moment_index");
+                return $this->redirectToRoute("member_moment_index");
 
             else:
                 $this->addFlash('notice', 'annulé');
-                return $this->redirectToRoute("admin_moment_index");
+                return $this->redirectToRoute("member_moment_index");
             endif;
         }
         return $this->render('admin/dose/moment/delete.html.twig', [

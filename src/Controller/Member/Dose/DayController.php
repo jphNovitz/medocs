@@ -4,7 +4,7 @@
  * @copyright 2021-2022
  */
 
-namespace App\Controller\Admin\Dose;
+namespace App\Controller\Member\Dose;
 
 use App\Entity\Day;
 use App\Form\DayType;
@@ -25,7 +25,7 @@ class DayController extends AbstractController
     {
     }
 
-    #[Route("", name: "admin_day_index")]
+    #[Route("", name: "member_day_index")]
     public function index(): Response
     {
         return new Response ($this->render('admin/dose/day/index.html.twig', [
@@ -33,7 +33,7 @@ class DayController extends AbstractController
         ]));
     }
 
-    #[Route("/new", name: "admin_day_new", methods: ["GET", "POST"])]
+    #[Route("/new", name: "member_day_new", methods: ["GET", "POST"])]
     public function create(Request $request): Response
     {
 
@@ -49,7 +49,7 @@ class DayController extends AbstractController
 
                 $this->addFlash('success', 'ajouté');
 
-                return $this->RedirectToRoute("admin_day_index");
+                return $this->RedirectToRoute("member_day_index");
 
             } catch (DriverException $e) {
                 die('erreur');
@@ -60,14 +60,14 @@ class DayController extends AbstractController
         ]);
     }
 
-    #[Route("/{id}/update", name: "app_admin_dose_day_update", methods: ["GET", "PUT"])]
+    #[Route("/{id}/update", name: "app_member_dose_day_update", methods: ["GET", "PUT"])]
     public function update(Request $request, Day $day = null): Response
     {
 
         if (!$day) {
             $this->addFlash('error', 'N\'existe pas');
 
-            return $this->RedirectToRoute("admin_day_index");
+            return $this->RedirectToRoute("member_day_index");
         }
 
         $form = $this->createForm(DayType::class, $day, [
@@ -80,7 +80,7 @@ class DayController extends AbstractController
             try {
                 $this->entityManager->flush();
                 $this->addFlash('success', 'modifié');
-                return $this->RedirectToRoute("admin_day_index");
+                return $this->RedirectToRoute("member_day_index");
 
             } catch (DriverException $e) {
                 die('erreur');
@@ -91,12 +91,12 @@ class DayController extends AbstractController
         ]);
     }
 
-    #[Route("/{id}/delete", name: "admin_day_delete", methods: ["GET", "DELETE"])]
+    #[Route("/{id}/delete", name: "member_day_delete", methods: ["GET", "DELETE"])]
     public function delete(Request $request, Day $day = null): Response
     {
         if (!$day) {
             $this->addFlash('error', 'N\'existe pas');
-            return $this->RedirectToRoute("admin_day_index");
+            return $this->RedirectToRoute("member_day_index");
         }
 
         $defaultData = ['message' => 'Voulez vous effacer ' . $day->getName() . ' ?'];
@@ -111,14 +111,14 @@ class DayController extends AbstractController
                     $this->entityManager->flush();
                     $this->addFlash('success', 'supprimé');
 
-                    return $this->RedirectToRoute("admin_day_index");
+                    return $this->RedirectToRoute("member_day_index");
 
                 } catch (DriverException $e) {
                     die('erreur');
                 }
             else:
                 $this->addFlash('notice', 'annulé');
-                return $this->RedirectToRoute("admin_day_index");
+                return $this->RedirectToRoute("member_day_index");
             endif;
 
         }
