@@ -21,21 +21,21 @@
               content="{% block og_image %}https://medocs.be/build/images/Wavy_Med-logo_bg.47907079.png{% endblock %}"/>
         <meta property="og:site_name"
               content="{% block og_site_name %}Comment mémoriser ma liste de médicaments: Medocs.be{% endblock %}"/>
-{#        {% include '_template-parts/analytics.html.twig' %}#}
+        {#        {% include '_template-parts/analytics.html.twig' %} #}
     {% endblock %}
 
     {% block stylesheets %}
-        {# parent() #}
-        {{ encore_entry_link_tags('front') }}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
     {% endblock %}
 
     {% block javascripts %}
-        {# parent() #}
-        {{ encore_entry_script_tags('front') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+
     {% endblock %}
 </head>
-<body>
-<div id="container">
+<body class="bg-base-light text-content-primary-light dark:bg-base-dark dark:text-content-primary-dark">
+<div class="w-full lg:max-w-screen-xl mx-auto">
     {% block header %}
         <header>
             <h1>
@@ -64,9 +64,9 @@
 
     {% block body %}{% endblock %}
 
-
-    {% include '_template-parts/_footer.html.twig' %}
 </div>
+
+{% include '_template-parts/_footer.html.twig' %}
 </body>
 
 </html>
