@@ -1,0 +1,18 @@
+
+<div {{ attributes.defaults({ class: 'w-full' }) }}>
+
+    {{ form_label(field,null, {
+        'label': label ?? field.vars.label,
+        'label_attr': {
+            'class': 'block mb-2 text-sm font-medium text-content-primary-light dark:text-content-primary-light'
+        } }) }}
+    {{ form_widget(field, { 'attr':
+        {
+            'class': 'bg-content-primary-light/10 border border-content-primary-light/30 text-content-primary-light text-sm rounded-lg focus:ring-content-secondary/60 focus:border-content-secondary/60 focus-visible:border-content-secondary/60 block w-full p-2.5 dark:bg-content-primary-dark/10 dark:border-content-primary-dark/60 dark:placeholder-content-primary-dark/50 dark:text-content-primary-dark dark:focus:ring-content-secondary/50 dark:focus-visible:ring-content-secondary/50 dark:focus:border-content-secondary/50 dark:focus-visible:border-content-secondary/50',
+            'placeholder': placeholder ?? field.vars.placeholder
+        }
+    })}}
+
+    {{ form_errors(field) }}
+
+</div>
