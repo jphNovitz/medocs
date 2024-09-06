@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-#[Route('/admin/list')]
+#[Route('/member/list')]
 class ListController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $entityManager,
@@ -37,7 +37,7 @@ class ListController extends AbstractController
         if (!$list = $this->lineRepositoryRepository->getAll())
             return $this->RedirectToRoute('member_line_new');
 
-        return $this->Render('admin/product/list/index.html.twig', [
+        return $this->Render('member/product/list/index.html.twig', [
             'list' => $list
         ]);
     }
@@ -67,7 +67,7 @@ class ListController extends AbstractController
             }
         }
 
-        return $this->Render('admin/product/list/new.html.twig', [
+        return $this->Render('member/product/list/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -97,7 +97,7 @@ class ListController extends AbstractController
             }
         }
 
-        return $this->Render('admin/product/list/update.html.twig', [
+        return $this->Render('member/product/list/update.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -131,7 +131,7 @@ class ListController extends AbstractController
                 return $this->RedirectToRoute("member_line_index");
             endif;
         }
-        return $this->Render('admin/product/list/delete.html.twig', [
+        return $this->Render('member/product/list/delete.html.twig', [
             'form' => $form->createView()
         ]);
     }
