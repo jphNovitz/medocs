@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> #}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     {% block seo %}
         <title>{% block title %}Comment mémoriser ma liste de médicaments{% endblock %}</title>
         <meta name="description"
@@ -26,7 +24,6 @@
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-
     {% endblock %}
 
     {% block javascripts %}
@@ -35,16 +32,7 @@
     {% endblock %}
 </head>
 <body class="bg-base-light text-content-primary-light dark:bg-base-dark dark:text-content-primary-dark">
-<div class="w-full lg:max-w-screen-xl mx-auto">
-    {% block header %}
-        <header>
-            <h1>
-                {% block header_h1 %}
-                    Liste de Médicaments
-                {% endblock %}
-            </h1>
-        </header>
-    {% endblock %}
+<div class="w-full lg:max-w-screen-xl min-h-screen mx-auto px-4 py-8">
 
     {% for message in app.flashes('notice') %}
         <div class="alert alert-notice">
@@ -61,6 +49,7 @@
             {{ message }}
         </div>
     {% endfor %}
+    <twig:title:h1>{% trans %}Mes medocs{% endtrans %}</twig:title:h1>
 
     {% block body %}{% endblock %}
 
