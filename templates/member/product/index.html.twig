@@ -4,7 +4,7 @@
 
 {% block header_h1 %} Produits{% endblock %}
 {% block header_h1_icon %}
-    <a href="{{ path('admin_product_new') }}" class="btn circle bg-primary-lighter border-primary inline">
+    <a href="{{ path('member_product_new') }}" class="btn circle bg-primary-lighter border-primary inline">
         <i class="material-icons">add</i>
     </a>
 {% endblock %}
@@ -24,9 +24,9 @@
                             <div class="actions">
                            {#      <a href="#" class="btn circle text-info"><span
                                             class="material-icons-round">visibility </span> </a> #}
-                                <a href="{{ path('admin_product_update', {'id': item.id}) }}"
+                                <a href="{{ path('member_product_update', {'id': item.id}) }}"
                                    class="btn circle text-edit"><span class="material-icons-round">edit</span> </a>
-                                <a href="{{ path('admin_product_delete', {'id': item.id}) }}"
+                                <a href="{{ path('member_product_delete', {'id': item.id}) }}"
                                    class="btn circle text-danger"><span class="material-icons-round">delete </span> </a>
                             </div>
                         </li>
