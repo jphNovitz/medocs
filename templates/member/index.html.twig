@@ -4,16 +4,50 @@
 
 {% block body %}
     {% if app.user.url is defined %}
-        <section class="bg-base-light px-4 py-8 antialiased dark:bg-base-dark md:py-16">
-            <div class="mx-auto grid max-w-screen-xl rounded-lg p-4  md:p-8 lg:grid-cols-12 lg:gap-8 lg:p-16 xl:gap-16">
-                <div class="lg:col-span-4 lg:mt-0 bg-surface-light  dark:bg-surface-dark ">
+
+        <section class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 mb-4 "
+
+                {{ stimulus_controller('tabs') }}>
+
+
+            <div class="mb-4 border-b-2 border-gray-200 dark:border-surface-dark">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+                    data-tabs-toggle="#default-tab-content" role="tablist">
+                    <li class="me-2 border-b-2 border-surface-dark dark:border-surface-light/60" role="presentation">
+                        <button href="#" class="inline-block p-4 rounded-t-lg" id="qr-tab"
+                                data-tabs-target="#qr" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'qr' }) }}
+                                type="button" role="tab" aria-controls="profile" aria-selected="false"
+                                data-tabs-active-class="border-content-primary-light/80 dark:border-content-primary-dark/80">
+                            {% trans %}title.myqr{% endtrans %}
+                        </button>
+                    </li>
+                    <li class="me-2" role="presentation">
+                        <button href="#" class="inline-block p-4  rounded-t-lg" id="url-tab"
+                                data-tabs-target="#url" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'url' }) }}
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">
+                            {% trans %}title.myurl{% endtrans %}
+                        </button>
+                    </li>
+                    <li class="me-2" role="presentation">
+                        <button href="#" class="inline-block p-4 rounded-t-lg" id="send-tab"
+                                data-tabs-target="#send" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'send' }) }}
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">
+                            {% trans %}title.sendlist{% endtrans %}
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="default-tab-content" class="mx-auto max-w-screen-xl px-4 lg:px-12">
+                <div class="p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden flex justify-center items-center" {{ stimulus_target('tabs', 'qr') }}
+                     id="qr" role="tabpanel" aria-labelledby="qr-tab">
                     <img src="{{ qr_code_url( app.request.schemeAndHttpHost ~ app.request.baseUrl ~ '/g/' ~ app.user.slug) }}"
-                         class="qr" alt="qr code medocs.be/g/{{ app.user.slug }}"/>
+                         class="w-48 aspect-square" alt="qr code medocs.be/g/{{ app.user.slug }}"/>
                 </div>
-                <div class="w-full me-auto place-self-start lg:col-span-8">
-                    <div class="p-4 bg-surface-light text-content-primary-light dark:bg-surface-dark dark:text-content-primary-dark">
+                <div class="hidden p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden" {{ stimulus_target('tabs', 'url') }}
+                     id="url" role="tabpanel" aria-labelledby="url-tab">
                     <h2 class="mb-3 text-2xl font-bold leading-tight tracking-tight text-content-primary-light dark:text-content-primary-dark md:text-lg">
-                        Mon url publique
+                        {% trans %}title.myurl{% endtrans %}
                     </h2>
                     {{ form_start(url_form, {'attr': {
                         'class': 'w-full flex flex-col mb-6 text-content-primary-light/70 dark:text-content-primary-dark/70',
@@ -23,18 +57,18 @@
                         {{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/g/
                         {{ form_widget(url_form.url, {
                             'value': app.user.url,
-                            'attr': {'class': 'bg-base-light/50 dark:bg-base-dark/20 rounded-lg p-2'}
+                            'attr': {'class': 'text-content-primary-light border-2 border-surface-dark/20 dark:border-surface-light/20 text-content-primary-light dark:text-content-primary-light text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-2.5 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
                         }) }}
                     </label>
                     <div class="mt-4">
-                        <twig:button:submit> Modifier </twig:button:submit>
-                        <twig:button:secondary> Générer un pseudo </twig:button:secondary>
+                        <twig:button:submit> Modifier</twig:button:submit>
+                        <twig:button:secondary> Générer un pseudo</twig:button:secondary>
                     </div>
-                    {{ form_end(url_form) }}
-                </div>
-                <div class="p-2 mt-2 bg-surface-light text-content-primary-light dark:bg-surface-dark dark:text-content-primary-dark">
-                    <h2 class="mb-3 text-xl font-bold leading-tight tracking-tight text-content-primary-light dark:text-content-primary-dark md:hidden">
-                        Envoyer url publique
+                    {{ form_end(url_form) }}      </div>
+                <div class="hidden p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden" {{ stimulus_target('tabs', 'send') }}
+                     id="send" role="tabpanel" aria-labelledby="send-tab">
+                    <h2 class="mb-3 text-2xl font-bold leading-tight tracking-tight text-content-primary-light dark:text-content-primary-dark md:text-lg">
+                        {% trans %}title.sendlist{% endtrans %}
                     </h2>
 
                     {{ form_start(send_form, {'attr': {
@@ -46,18 +80,18 @@
                     <label for="send_email" class="space-y-4">
                         <span>Indiquez une adresse email, la personne recevra un lien vers votre liste publique</span>
                         {{ form_widget(send_form.email, {
-                            'attr': {'class': 'w-full bg-base-light/50 dark:bg-base-dark/20 rounded-lg p-2'}
+                            'attr': {'class': 'w-full text-content-primary-light border-2 border-surface-dark/20 dark:border-surface-light/20 text-content-primary-light dark:text-content-primary-light text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-2.5 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
                         }) }}
                     </label>
                     <div class="mt-4">
-                        <twig:button:submit> Envoyer </twig:button:submit>
+                        <twig:button:submit> Envoyer</twig:button:submit>
                     </div>
-                    {{ form_end(send_form) }}
-                </div>
-            </div>
-            </div>
-        </section>
+                    {{ form_end(send_form) }}    </div>
 
+            </div>
+
+
+        </section>
 
 
         {% embed "_template-parts/_lines-list.html.twig" %}

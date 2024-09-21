@@ -24,14 +24,14 @@
                     </form>
                 </div>#}
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <a href="{{ path('member_product_new') }}"
+                    <a href="{{ path('member_line_new') }}"
                             class="flex items-center justify-center text-content-primary-dark bg-surface-dark hover:bg-surface-dark/80 focus:ring-4 focus:ring-surface-dark/30 font-medium rounded-lg text-sm px-4 py-2 dark:text-content-primary-light dark:bg-surface-light/60 dark:hover:bg-surface-light/70 focus:outline-none dark:focus:ring-surface-light/80">
                         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
                                   d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
                         </svg>
-                        {% trans %} button.new{% endtrans %}
+                        {% trans %} button.add{% endtrans %}
                     </a>
 {#                    <button type="button"#}
 {#                            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">#}
@@ -133,11 +133,11 @@
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-4 py-3">{% trans %}product.name {% endtrans %}</th>
-                        <th scope="col" class="px-4 py-3">{% trans %}product.qty {% endtrans %}</th>
-                        <th scope="col" class="px-4 py-3">{% trans %}product.day {% endtrans %}</th>
-                        <th scope="col" class="px-4 py-3">{% trans %}product.frequency {% endtrans %}</th>
-                        <th scope="col" class="px-4 py-3">{% trans %}product.moment{% endtrans %}</th>
+                        <th scope="col" class="px-4 py-3">{% trans %}title.product.name {% endtrans %}</th>
+                        <th scope="col" class="px-4 py-3">{% trans %}title.product.qty {% endtrans %}</th>
+                        <th scope="col" class="px-4 py-3">{% trans %}title.product.day {% endtrans %}</th>
+                        <th scope="col" class="px-4 py-3">{% trans %}title.product.frequency {% endtrans %}</th>
+                        <th scope="col" class="px-4 py-3">{% trans %}title.product.moment {% endtrans %}</th>
                         <th scope="col" class="px-4 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
@@ -147,11 +147,10 @@
                     {% for item in list %}
                         <tr class="border-b dark:border-gray-700">
                             <th scope="row"
-                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Apple iMac
-                                27&#34;
+                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ item.name|default('N/A') }}
                             </th>
-                            <td class="px-4 py-3"> {{ item.product.name }}</td>
-                            <td class="px-4 py-3">{{ item.qty|default('N/A') }}</td>
+                            <td class="px-4 py-3"> {{ item.qty|default('N/A') }}</td>
                             <td class="px-4 py-3">{{ item.day|default('N/A') }}</td>
                             <td class="px-4 py-3">{{ item.dose.frequency.name|default('N/A') }}</td>
                             <td class="px-4 py-3">{{ item.dose.moment.name|default('N/A') }}</td>

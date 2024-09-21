@@ -1,5 +1,24 @@
 hour: heure
+
+title:
+  myqr: "Mon code QR"
+  myurl: "Mon url"
+  sendlist: "Envoyer"  
+  product:
+    new: "Ajouter un produit"
+    name: "Nom du produit"
+    qty: "Quantité"
+    day: "Jour"
+    frequency: "Fréquence"
+    moment: "Moment"
+
 #forms
+form:
+  product:
+    name: "Nom du produit"
+    name.placeholder: "Quel médicament prenez-vous"
+    comment: "Un petit commentaire"
+    comment.placeholder: "Un commentaire ou une explication"
 login: connexion
 Login: Connexion
 logout: déconnexion
@@ -61,3 +80,17 @@ Here is your information: Voici vos informations
 they have been deleted: elles ont été supprimées
 They have been deleted: Elles ont été supprimées
 Here is your information, they have been deleted: Voici vos informations, elles ont été supprimées
+
+hero:
+  h1: "Gérez Vos Médicaments en Toute Simplicité"
+  p: "Medocs.be, votre assistant santé numérique. Inscrivez-vous en une minute, enregistrez et partagez vos prescriptions facilement, où que vous soyez."
+  button:
+    primary: "Je m'inscris"
+    secondary: "Ma liste"
+#footer
+footer:
+  pitch: "Medocs.be permet aux personnes agées de mémoriser et transmettre facilement leur liste de médicaments."
+
+button:
+  add: "Ajouter un produit"
+  new: "Ajouter un produit"

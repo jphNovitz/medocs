@@ -35,8 +35,7 @@ class IndexController extends AbstractController
     public function index(Request $request): Response
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['id'=> $this->getUser()]);
-        $products = $this->lineRepository->getAllUserLines($this->getUser());;
-
+        $products = $this->lineRepository->getAllUserLines($this->getUser());
         $urlForm = $this->createForm(UrlType::class, null, [
             'url' => $this->getUser()->getUrl()
         ]);
@@ -58,7 +57,6 @@ class IndexController extends AbstractController
             $this->addFlash('success', 'URL mise à jour avec succès.');
             return $this->redirectToRoute('member_index');
         }
-
         return $this->render('member/index.html.twig', [
             'list' => $products,
             'url_form' => $urlForm,
