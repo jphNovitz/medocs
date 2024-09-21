@@ -16,4 +16,24 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'flowbite' => [
+        'version' => '2.5.1',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'flowbite-datepicker' => [
+        'version' => '1.3.0',
+    ],
+    'flowbite/dist/flowbite.min.css' => [
+        'version' => '2.5.1',
+        'type' => 'css',
+    ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@symfony/stimulus-bundle' => [
+        // 'path' => '@symfony/stimulus-bundle/loader.js',
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
 ];
