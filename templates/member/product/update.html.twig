@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="bg-surface-light dark:bg-surface-light">
+        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <twig:title:h2>{% trans %}title.product.edit {% endtrans %}</twig:title:h2>
+            {{ include('member/product/_form.html.twig', {'button_label': 'button.edit'}) }}
+        </div>
+    </section>
+
+{% endblock %}

@@ -35,58 +35,88 @@
                             {% trans %}title.sendlist{% endtrans %}
                         </button>
                     </li>
-
                 </ul>
             </div>
             <div id="default-tab-content" class="mx-auto max-w-screen-xl px-4 lg:px-12">
-                <div class="p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden flex justify-center items-center" {{ stimulus_target('tabs', 'qr') }}
+                <div class="space-y-8 p-4 bg-surface-light dark:bg-surface-dark relative flex flex-col space-y-4 shadow-md sm:rounded-lg overflow-hidden flex " {{ stimulus_target('tabs', 'qr') }}
                      id="qr" role="tabpanel" aria-labelledby="qr-tab">
-                    <img src="{{ qr_code_url( app.request.schemeAndHttpHost ~ app.request.baseUrl ~ '/g/' ~ app.user.slug) }}"
-                         class="w-48 aspect-square" alt="qr code medocs.be/g/{{ app.user.slug }}"/>
+                    <twig:title:h2>{% trans %}title.myqr{% endtrans %}</twig:title:h2>
+                    <div class="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+                        <div class="w-full lg:w-1/2 flex justify-center items-center">
+                            <img src="{{ qr_code_url( app.request.schemeAndHttpHost ~ app.request.baseUrl ~ '/g/' ~ app.user.slug) }}"
+                                 class="w-48 aspect-square" alt="qr code medocs.be/g/{{ app.user.slug }}"/>
+                        </div>
+                        <div class="w-full flex flex-col justify-center items-start lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 p-4">
+                            <p class="mb-4">En cas de besoin, faites scanner ce QR code pour partager à votre liste de
+                                médicaments.</p>
+                            <p><strong>Astuce: </strong> faites une capture d'écran !</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="hidden p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden" {{ stimulus_target('tabs', 'url') }}
+                <div class="hidden p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden space-y-8" {{ stimulus_target('tabs', 'url') }}
                      id="url" role="tabpanel" aria-labelledby="url-tab">
-                    <h2 class="mb-3 text-2xl font-bold leading-tight tracking-tight text-content-primary-light dark:text-content-primary-dark md:text-lg">
-                        {% trans %}title.myurl{% endtrans %}
-                    </h2>
-                    {{ form_start(url_form, {'attr': {
-                        'class': 'w-full flex flex-col mb-6 text-content-primary-light/70 dark:text-content-primary-dark/70',
-                        'id': 'emergency'
-                    }}) }}
-                    <label for="url_url">
-                        {{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/g/
-                        {{ form_widget(url_form.url, {
-                            'value': app.user.url,
-                            'attr': {'class': 'text-content-primary-light border-2 border-surface-dark/20 dark:border-surface-light/20 text-content-primary-light dark:text-content-primary-light text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-2.5 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
-                        }) }}
-                    </label>
-                    <div class="mt-4">
-                        <twig:button:submit> Modifier</twig:button:submit>
-                        <twig:button:secondary> Générer un pseudo</twig:button:secondary>
+                    <twig:title:h2> {% trans %}title.myurl{% endtrans %} </twig:title:h2>
+                    <div class="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4" {{ stimulus_controller('generate') }}>
+                        <div class="w-full lg:w-1/2 flex flex-col justify-center items-center">
+                            {{ form_start(url_form, {'attr': {
+                                'class': 'w-full flex flex-col mb-6 text-content-primary-light/70 dark:text-content-primary-dark/70',
+                                'id': 'emergency'
+                            }}) }}
+                            <label for="url_url"
+                                   class="w-full flex-col md:flex-row justify-start items-center space-x-4 text-content-primary-light/70 dark:text-content-primary-dark/70">
+                                {{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/g/
+                                {{ form_widget(url_form.url, {
+                                    'id': 'url_url',
+                                    'value': app.user.url,
+                                    'attr': {
+                                        'class': 'w-full md:w-auto flex flex-1 border border-surface-dark/20 dark:border-surface-light/20 bg-surface-light/60 dark:bg-surface-light/20 text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-1 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
+                                }) }}
+                            </label>
+
+                            <div class="mt-4 w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                                <twig:button:submit> Modifier</twig:button:submit>
+                                <a {{ stimulus_action('generate', 'insert', 'click') }}
+                                        class="cursor-pointer inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-content-primary-light/50 border border-content-primary-light/50 rounded-lg hover:bg-content-primary-light/10 focus:ring-4 focus:ring-content-primary-light/20 dark:text-white dark:border-content-primary-dark/70 dark:hover:bg-content-primary-dark/70 dark:focus:ring-content-primary-dark/80">
+                                    Générer un pseudo
+                                </a>
+                                {#                                <twig:button:secondary  {{ ...stimulus_action('generate', 'insert', 'click') }}> Générer un pseudo</twig:button:secondary> #}
+                            </div>
+                            {{ form_end(url_form) }}
+                        </div>
+
+                        <div class="w-full flex flex-col justify-start items-center lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 -mt-4 p-4">
+                            <p class="mb-4">Définissez votre pseudo pour rendre votre profil unique</p>
+                            <p><strong>En manque d'idées ? </strong> vous avez la possibilité de générer un pseudo
+                                aléatoire.</p>
+                        </div>
                     </div>
-                    {{ form_end(url_form) }}      </div>
-                <div class="hidden p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden" {{ stimulus_target('tabs', 'send') }}
+                </div>
+                <div class="hidden space-y-8 p-4 bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden" {{ stimulus_target('tabs', 'send') }}
                      id="send" role="tabpanel" aria-labelledby="send-tab">
-                    <h2 class="mb-3 text-2xl font-bold leading-tight tracking-tight text-content-primary-light dark:text-content-primary-dark md:text-lg">
-                        {% trans %}title.sendlist{% endtrans %}
-                    </h2>
+                    <twig:title:h2> {% trans %}title.sendlist{% endtrans %} </twig:title:h2>
+                    <div class="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+                        <div class="w-full lg:w-1/2 flex flex-col justify-center items-center">
+                            {{ form_start(send_form, {'attr': {
+                                'class': 'w-full flex flex-col mb-6 text-content-primary-light/70 dark:text-content-primary-dark/70',
+                                'id': ''
+                            }}) }}
 
-                    {{ form_start(send_form, {'attr': {
-                        'class': 'w-full flex flex-col mb-6 text-content-primary-light/70 dark:text-content-primary-dark/70',
-                        'id': ''
-                    }}) }}
 
-
-                    <label for="send_email" class="space-y-4">
-                        <span>Indiquez une adresse email, la personne recevra un lien vers votre liste publique</span>
-                        {{ form_widget(send_form.email, {
-                            'attr': {'class': 'w-full text-content-primary-light border-2 border-surface-dark/20 dark:border-surface-light/20 text-content-primary-light dark:text-content-primary-light text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-2.5 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
-                        }) }}
-                    </label>
-                    <div class="mt-4">
-                        <twig:button:submit> Envoyer</twig:button:submit>
+                            <label for="send_email" class="space-y-4">
+                                {{ form_widget(send_form.email, {
+                                    'attr': {'class': 'w-full text-content-primary-light border-2 border-surface-dark/20 dark:border-surface-light/20 text-content-primary-light dark:text-content-primary-light text-sm rounded-lg focus:ring-surface-dark/80 focus:border-surface-dark/80 focus-visible:ring-surface-dark/80 focus-visible:border-surface-dark/80 block  p-2.5 dark:border-surface-light/20 dark:placeholder-gray-400 dark:text-white dark:focus:ring-surface-light/80 dark:focus:border-surface-light/80 dark:focus-visible:ring-surface-light/80 dark:focus-visible:border-surface-light/80'}
+                                }) }}
+                            </label>
+                            <div class="mt-4">
+                                <twig:button:submit> Envoyer</twig:button:submit>
+                            </div>
+                            {{ form_end(send_form) }}
+                        </div>
+                        <div class="w-full lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 -mt-4 p-4">
+                            <p>Indiquez une adresse email, la personne recevra un lien vers votre liste publique</p>
+                        </div>
                     </div>
-                    {{ form_end(send_form) }}    </div>
+                </div>
 
             </div>
 
