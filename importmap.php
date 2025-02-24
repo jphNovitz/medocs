@@ -33,7 +33,9 @@ return [
         'version' => '3.2.2',
     ],
     '@symfony/stimulus-bundle' => [
-        // 'path' => '@symfony/stimulus-bundle/loader.js',
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    '@faker-js/faker' => [
+        'version' => '9.5.0',
     ],
 ];
