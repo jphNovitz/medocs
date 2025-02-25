@@ -1,63 +1,95 @@
 {% extends 'base_security.html.twig' %}
 
-{% block login_button %}
-    {% if app.user %}
-        {{ app.user.username }},
-        <a href="{{ path('app_logout') }}" class="btn btn-basic">
-            {% trans %} Logout {% endtrans %}
-        </a>
-    {% else %}
-        <a href="{{ path('app_login') }}" class="btn btn-basic">
-            {% trans %} Login {% endtrans %}
-        </a>
-    {% endif %}
-{% endblock %}
-{% block title %}Register{% endblock %}
+{% block title %}Inscription | medocs.be{% endblock %}
 {% block body %}
-    <div id="register">
-        {% for flashError in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-        {% endfor %}
 
-        <h1 class="h3 mb-3 font-weight-normal">{% trans %}Register{% endtrans %}</h1>
+    <section class="">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="{{ path('public_index') }}"
+               class="flex justify-center items-center text-2xl font-semibold text-content-primary-light dark:text-content-primary-dark">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6" fill="none" viewBox="0 0 24 24"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                    <path fill="url(&quot;#SvgjsLinearGradient1076&quot;)" fill-rule="evenodd"
+                          d="M3 5a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM3 12a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM3 19a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm7 0a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
+                          clip-rule="evenodd"></path>
+                    <defs>
+                        <linearGradient gradientTransform="rotate(0 0.5 0.5)" id="SvgjsLinearGradient1076">
+                            <stop stop-opacity=" 1" stop-color="rgba(105, 234, 203)" offset="0"></stop>
+                            <stop stop-opacity=" 1" stop-color="rgba(234, 204, 248)" offset="0.48"></stop>
+                            <stop stop-opacity=" 1" stop-color="rgba(102, 84, 241)" offset="1"></stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                Medocs.be
+            </a>
 
-        {{ form_start(registrationForm) }}
-        <div class="form-row">
-            {{ form_label(registrationForm.email) }}
-            {{ form_widget(registrationForm.email) }}
-        </div>
-        {% if form_errors(registrationForm.email)|length > 0 %}
-            <div class="alert alert-danger">
-                {{ form_errors(registrationForm.email) }}
+            <div class="w-full bg-surface-light  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-surface-dark dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        {% trans %} title.register {% endtrans %}
+                    </h1>
+                    {{ form_start(registrationForm, {'attr': {'class': 'space-y-4 md:space-y-6'}}) }}
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+
+                    <div class="form-row">
+                        {#                        {{ form_label(registrationForm.email)}} #}
+                        {{ form_label(registrationForm.email, 'form.email', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control bg-base-light/10 border border-gray-300 text-content-light rounded-lg focus:ring-base-light focus:border-base-light block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        {% if form_errors(registrationForm.email)|length > 0 %}
+                            <div class="alert alert-danger">
+                                {{ form_errors(registrationForm.email) }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control bg-base-light/10 border border-gray-300 text-content-light rounded-lg focus:ring-base-light focus:border-base-light block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                    </div>
+                    <div class="form-row">
+                        {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control bg-base-light/10 border border-gray-300 text-content-light rounded-lg focus:ring-base-light focus:border-base-light block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        {% if form_errors(registrationForm.plainPassword)|length > 0 %}
+                            <div class="alert alert-danger">
+                                {{ form_errors(registrationForm.plainPassword) }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="form-row flex items-baseline justify-around">
+                        <label for="registration_form_agreeTerms"
+                               class="w-fit mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80">
+                            <a href="{{ path('public_condition_use_fr') }}">
+                                <u><strong>{{ 'form.agree'|trans }}</strong></u></a>
+                        </label>
+
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-control inline w-4 bg-base-light/10 border border-gray-300 text-content-light rounded-lg focus:ring-base-light focus:border-base-light dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        {% if form_errors(registrationForm.agreeTerms)|length > 0 %}
+                            <div class="alert alert-danger">
+                                {{ form_errors(registrationForm.agreeTerms) }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+
+                    <twig:button:submit class="md:w-full">{% trans %}signin {% endtrans %}</twig:button:submit>
+                    <p class="text-sm font-light text-content-primary-light/60 dark:text-content-primary-dark/50">
+                        {% trans %} form.already_registered{% endtrans %}
+                        <a href="{{ path('app_login') }}"
+                           class="font-semibold text-primary-600 hover:underline dark:text-primary-500">
+                            {{ 'login' | trans }}
+                        </a>
+                    </p>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    {{ form_end(registrationForm) }}
+                </div>
             </div>
-        {% endif %}
-        <div class="form-row">
-            {{ form_label(registrationForm.plainPassword, ' ') }}
-            {{ form_widget(registrationForm.plainPassword) }}
         </div>
-        {% if form_errors(registrationForm.plainPassword)|length > 0 %}
-            <div class="alert alert-danger">
-                {{ form_errors(registrationForm.plainPassword) }}
-            </div>
-        {% endif %}
-        <div class="form-row flow-reverse" style="align-items: baseline ; justify-content: flex-end">
-            {# {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions') }} #}
-            <label for="registration_form_agreeTerms">
-                <a href="{{ path('public_condition_use_fr') }}"> J'accepte les <u><strong>conditions</strong></u> </a>
-            </label>
-            {{ form_widget(registrationForm.agreeTerms) }}
-        </div>
+    </section>
 
-        {% if form_errors(registrationForm.agreeTerms)|length > 0 %}
-            <div class="alert alert-danger">
-                {{ form_errors(registrationForm.agreeTerms) }}
-            </div>
-        {% endif %}
-        <div class="form-row">
-            <input type="submit" class="bg-primary" value="je m'inscris">
-        </div>
-
-        {{ form_end(registrationForm) }}
-
-    </div>
 {% endblock %}
