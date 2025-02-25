@@ -52,7 +52,7 @@ class ListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try {
+    
                 $line->setUser($this->userRepository->findOneBy([
                     'id' => $this->security->getUser()->getId()
                 ]));
@@ -62,9 +62,6 @@ class ListController extends AbstractController
 
                 return $this->RedirectToRoute('member_line_new');
 
-            } catch (DriverException $e) {
-                die;
-            }
         }
 
         return $this->Render('member/product/list/new.html.twig', [
