@@ -13,30 +13,26 @@ class Line
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Dose", inversedBy: "line")]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
-    private $dose;
+    private Dose $dose;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Product")]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
-    private $product;
+    private Product $product;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "lines")]
     #[ORM\JoinColumn(onDelete: "CASCADE")]
-    private $user;
+    private User $user;
 
-    #[ORM\Column(type: "float", nullable: true, scale: 1)]
-    private $qty;
+    #[ORM\Column(type: "float", scale: 1, nullable: true)]
+    private float $qty;
 
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Day")]
-    private $day;
+    #[ORM\Column(type: "string", length: 20, nullable: false)]
+    private string $day;
 
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -89,38 +85,29 @@ class Line
         return $this->getQty() . " " . $this->getProduct()->getName() . " - " . $this->getDose();
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
-        $user->removeLine($this);
-        return $this;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-        $user->addLine($this);
-
-        return $this;
-    }
-
-    public function getDay(): ?Day
+    public function getDay(): ?string
     {
         return $this->day;
     }
 
-    public function setDay(?Day $day): self
+    public function setDay(string $day): static
     {
         $this->day = $day;
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
 }

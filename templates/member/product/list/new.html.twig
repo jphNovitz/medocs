@@ -10,8 +10,10 @@
             <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
 
                 <twig:title:h2 class="p-4"> Ajouter</twig:title:h2>
-                <div class="p-4">
-                    {{ form_start(form, {'class': 'w-full'}) }}
+
+                {{ form_start(form, {'class': 'w-full'}) }}
+                <div class="p-4 flex flex-col space-y-8">
+                    {#                    Quantiy / product / add  #}
                     <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <div class="w-full flex  md:flex-1 items-center space-x-4">
                             <div class="w-16">
@@ -34,40 +36,44 @@
                         <div class="w-full md:w-20 items-center">
                             <div>&nbsp;</div>
                             <a href="{{ path('member_product_new') }}" title="ajouter un produit"
-                               class="inline-block w-full bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring"> ajouter</a>
+                               class="inline-block w-full bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                                Ajouter </a>
                         </div>
                     </div>
-                </div>
-                <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                    <div class="w-full space-y-2 flex flex-col space-x-4">
-                        {{ form_label(form.day, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
-                        {{ form_widget(form.day, {'attr': {'class': 'bg-base-light/50 border-2 border-gray-300 text-content-dark/90 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                    {#                 END   Quantiy / product / add  #}
+                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="w-full space-y-4 flex flex-col">
+                            {{ form_label(form.day, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-base-light/50 border-2 border-gray-300 text-content-dark/90 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                {% for checkbox in form.day %}
+                                    <div>
+                                        {{ form_widget(checkbox) }}
+                                        {{ form_label(checkbox) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {#                        {{ form_widget(form.day, {'attr': {'class': 'grid grid-cols-2 gap-4 bg-base-light/50 border-2 border-gray-300 text-content-dark/90 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }} #}
+                        </div>
+                        <div>
+                            explic
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                            {{ form_label(form.dose) }}
+                            {{ form_widget(form.dose) }}
 
-                        <a href="{{ path('member_day_new') }}" class="text-primary-darker">
-                            <i class="material-icons-round">add_box</i>
-                        </a>
-                    </div>
-                    <div>
-                        explic
+                            <a href="{{ path('member_dose_new') }}" class="text-primary-darker">
+                                Ajouter
+                            </a>
                     </div>
                 </div>
-                <div class="horizontal-item">
-                    <div class="form-row">
-                        {{ form_label(form.dose) }}
-                        {{ form_widget(form.dose) }}
-
-                        <a href="{{ path('member_dose_new') }}" class="text-primary-darker">
-                            <i class="material-icons-round">add_box</i>
-                        </a>
-                    </div>
+                <div class="form-row">
+                    {% block submit %} <input type="submit" class="btn auto-min bg-primary text-white"
+                                              value="Ajouter">{% endblock %}
                 </div>
-            </div>
-            <div class="form-row">
-                {% block submit %} <input type="submit" class="btn auto-min bg-primary text-white"
-                                          value="Ajouter">{% endblock %}
             </div>
             {{ form_end(form) }}
-        </div>
+
         </div>
     </section>
 {% endblock %}
