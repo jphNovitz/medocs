@@ -37,6 +37,7 @@ class LineType extends AbstractType
                 'multiple' => true,
             ])
             ->add('dose', EntityType::class, [
+                'label' => 'dose',
                 'class' => Dose::class
             ])
             /*           ->add('doseNew', DoseType::class, array(

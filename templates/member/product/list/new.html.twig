@@ -58,22 +58,75 @@
                             explic
                         </div>
                     </div>
-                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                            {{ form_label(form.dose) }}
-                            {{ form_widget(form.dose) }}
+                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4" {{ stimulus_controller('modale') }}>
+                        <div class="flex flex-col flex-1">
+                        {{ form_label(form.dose, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                        {{ form_widget(form.dose, {'attr': {
+                            'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                        }}) }}
+                        </div>
+                        <button {{ stimulus_action('modale', 'open', 'click', ) }}
+                                {#                                href="{{ path('member_dose_new') }}" #}
+                                class="inline-block w-full md:w-20 bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                            Ajouter
+                        </button>
 
-                            <a href="{{ path('member_dose_new') }}" class="text-primary-darker">
-                                Ajouter
-                            </a>
+                        <!-- Modale  -->
+                        <div {{ stimulus_target('modale', 'container' ) }}
+                                class="fixed inset-0 bg-gray-600 bg-opacity-60 hidden items-center justify-center z-50">
+
+                            <div class="w-full md:w-96 p-4 flex flex-col space-y-8 bg-surface-light dark:bg-surface-dark p-4 rounded shadow-lg"
+                            >
+
+                                {{ form_start(form, {'attr': {'data-modal-target': 'form'}}) }}
+
+
+                                <twig:title:h3>A quelle fréquence</twig:title:h3>
+                                <div class="space-y-4">
+                                    {{ form_label(formDose.frequency, 'Fréquence', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                                    {{ form_widget(formDose.frequency, {'attr': {
+                                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                    }}) }}
+                                </div>
+                                <div class="space-y-4">
+                                    {{ form_label(formDose.frequencyNew.name, 'Nouvelle fréquence', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                                    {{ form_widget(formDose.frequencyNew.name, {'attr': {
+                                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                    }}) }}
+                                </div>
+
+
+                                <twig:title:h3>Moment</twig:title:h3>
+                                <div class="space-y-4">
+                                    {{ form_label(formDose.moment, 'Moment', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                                    {{ form_widget(formDose.moment, {'attr': {
+                                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                    }}) }}
+                                </div>
+                                <div class="space-y-4">
+                                    {{ form_label(formDose.momentNew.name, 'Nouveau moment', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                                    {{ form_widget(formDose.momentNew.name, {'attr': {
+                                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                    }}) }}
+                                </div>
+
+                                {{ form_widget(formDose.submit, {'attr': {
+                                    'data-action': 'click->modal#close',
+                                    'class': 'w-full md:w-fit text-content-primary-light bg-content-secondary hover:bg-content-secondary/80  focus:outline-none ring-1 ring-content-secondary focus:ring-content-secondary/50 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-content-secondary/90 dark:hover:bg-content-secondary/70 dark:focus:ring-content-secondary/80'
+                                }}) }}
+
+                                {{ form_end(formDose) }}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        {% block submit %} <input type="submit" class="btn auto-min bg-primary text-white"
+                                                  value="Ajouter">{% endblock %}
                     </div>
                 </div>
-                <div class="form-row">
-                    {% block submit %} <input type="submit" class="btn auto-min bg-primary text-white"
-                                              value="Ajouter">{% endblock %}
-                </div>
-            </div>
-            {{ form_end(form) }}
+                {{ form_end(form) }}
 
-        </div>
+            </div>
     </section>
 {% endblock %}

@@ -44,17 +44,14 @@ class DoseType extends AbstractType
                 'required' => FALSE,
                 'mapped' => FALSE,
                 'property_path' => 'item',
-            ));
+            ))
+            ->add('submit', SubmitType::class, [
+                'label' => 'Save',
+            ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
-//dump($data['frequencyNew']['name']);
-
-//dump($event);
-//dd($data->getFrequency());
-//dd($form);
-//dd($form->get('frequencyNew')->getData()->getName());
 
             if (!empty($form->get('frequencyNew')->getData())) {
                 $newFrequency = new Frequency();

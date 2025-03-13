@@ -7,8 +7,10 @@
 
 namespace App\Controller\Member\Product;
 
+use App\Entity\Dose;
 use App\Entity\Line;
 use App\Form\DeleteFormType;
+use App\Form\DoseType;
 use App\Form\LineType;
 use App\Repository\LineRepository;
 use App\Repository\UserRepository;
@@ -27,7 +29,6 @@ class ListController extends AbstractController
     public function __construct(private EntityManagerInterface $entityManager,
                                 private LineRepository         $lineRepositoryRepository,
                                 private UserRepository         $userRepository,
-                                private Security               $security,
                                 private RequestStack           $requestStack)
     {}
 
@@ -49,13 +50,14 @@ class ListController extends AbstractController
         $line = new Line();
         $form = $this->createForm(LineType::class, $line);
 
+        $dose = new Dose();
+        $formDose = $this->createForm(DoseType::class, $dose);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
     
-                $line->setUser($this->userRepository->findOneBy([
-                    'id' => $this->security->getUser()->getId()
-                ]));
+                $line->setUser($this->getUser());
                 $this->entityManager->persist($line);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Ligne ajouté');
@@ -65,7 +67,8 @@ class ListController extends AbstractController
         }
 
         return $this->Render('member/product/list/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formDose' => $formDose->createView()
         ]);
     }
 
