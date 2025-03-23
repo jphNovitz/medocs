@@ -18,15 +18,15 @@ class Dose
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Frequency", inversedBy: "dose")]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
-    private $frequency;
+    private ?Frequency $frequency;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Moment", inversedBy: "dose")]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
-    private $moment;
+    private ?Moment $moment;
 
     #[ORM\OneToMany(targetEntity: "App\Entity\Line", mappedBy: "dose", orphanRemoval: true, cascade: ["remove"])]
     private $line;

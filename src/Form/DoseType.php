@@ -6,8 +6,11 @@ use App\Entity\Dose;
 use App\Entity\Frequency;
 use App\Entity\Moment;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,28 +29,73 @@ class DoseType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $frequencyRepository = $this->em->getRepository(Frequency::class);
+
+        $choices_frequency = [];
+        $frequencies = $frequencyRepository->findAll();
+
+        foreach ($frequencies as $frequency) {
+            $choices_frequency[$frequency->getName()] = $frequency->getId();
+        }
+
+        $momentRepository = $this->em->getRepository(Moment::class);
+        $choices_moment = [];
+        $moments = $momentRepository->findAll();
+        foreach ($moments as $moment) {
+            $choices_moment[$moment->getName()] = $moment->getId();
+        }
+
+        // Ajouter l'option "Autre"
+        $choices_frequency['Autre'] = 'autre';
+        $choices_moment['Autre'] = 'autre';
+
         $builder
-            ->add('frequency', EntityType::class, [
-                'class' => Frequency::class,
-                'choice_label' => 'name'
+//            ->add('frequency', EntityType::class, [
+//                'class' => Frequency::class,
+//                'choice_label' => 'name',
+//                'placeholder' => 'Choisir une fréquence',
+//                'required' => true,
+//            ])
+            ->add('frequency', ChoiceType::class, [
+                'choices' => $choices_frequency,
+                'placeholder' => 'Choisir une fréquence',
+                'mapped' => false,
             ])
             ->add('frequencyNew', FrequencyType::class, array(
                 'required' => FALSE,
                 'mapped' => FALSE,
                 'property_path' => 'item',
+                'attr' => [
+                    'placeholder' => 'Saisissez une nouvelle fréquence'
+                ],
             ))
-            ->add('moment', EntityType::class, [
-                'class' => Moment::class,
-                'choice_label' => 'name'
+            ->add('moment', ChoiceType::class, [
+                'choices' => $choices_moment,
+                'placeholder' => 'Choisir un moment',
+                'mapped' => false,
             ])
             ->add('momentNew', MomentType::class, array(
                 'required' => FALSE,
                 'mapped' => FALSE,
                 'property_path' => 'item',
+                'attr' => [
+                    'placeholder' => 'Saisissez une nouvelle fréquence'
+                ],
             ))
-            ->add('submit', SubmitType::class, [
-                'label' => 'Save',
-            ]);
+//            ->add('moment', EntityType::class, [
+//                'class' => Moment::class,
+//                'choice_label' => 'name'
+//            ])
+//            ->add('momentNew', MomentType::class, array(
+//                'required' => FALSE,
+//                'mapped' => FALSE,
+//                'property_path' => 'item',
+//            ))
+//            ->add('submit', SubmitType::class, [
+//                'label' => 'Save',
+//            ])
+        ;
+
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
@@ -84,7 +132,7 @@ class DoseType extends AbstractType
 
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Dose::class,
