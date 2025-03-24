@@ -28,10 +28,11 @@ class Line
     private User $user;
 
     #[ORM\Column(type: "float", scale: 1, nullable: true)]
-    private float $qty;
+    private float $qty = 1;
 
-    #[ORM\Column(type: "string", length: 20, nullable: false)]
-    private string $day;
+    #[ORM\Column(type: "json", nullable: false)]
+    private array $day = [];
+
 
 
     public function getId(): ?int
@@ -85,17 +86,6 @@ class Line
         return $this->getQty() . " " . $this->getProduct()->getName() . " - " . $this->getDose();
     }
 
-    public function getDay(): ?string
-    {
-        return $this->day;
-    }
-
-    public function setDay(string $day): static
-    {
-        $this->day = $day;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -105,6 +95,18 @@ class Line
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDay(): array
+    {
+        return $this->day;
+    }
+
+    public function setDay(array $day): static
+    {
+        $this->day = $day;
 
         return $this;
     }

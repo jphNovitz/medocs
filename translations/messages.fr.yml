@@ -1,9 +1,12 @@
 hour: heure
 
 title:
+  login: "Veuillez vous connecter"
+  register: "Inscription"
   myqr: "Mon code QR"
   myurl: "Mon url"
-  sendlist: "Envoyer"  
+  sendlist: "Envoyer"
+  list.complete: "Liste complète"
   product:
     new: "Ajouter un produit"
     name: "Nom du produit"
@@ -19,13 +22,20 @@ form:
     name.placeholder: "Quel médicament prenez-vous"
     comment: "Un petit commentaire"
     comment.placeholder: "Un commentaire ou une explication"
+  email: "Email"
+  password: "Mot de passe"
+  repeat_password: "Répétez le mot de passe"
+  agree: "J'accepte les conditions d'utilisation"
+  already_registered: "Déjà inscrit ?"
+  not_registered: "Pas encore inscrit ?"
 login: connexion
 Login: Connexion
 logout: déconnexion
 Logout: Déconnexion
 register: s'enregistrer
 Register: S'enregistrer
-Sign in: Conexion
+Sign up: "S'inscrire"
+signin: Conexion
 Forgot password: Mot de passe oublié
 forgot password: mot de passe oublié
 Update my profile: Mettre mon profil à jour
@@ -54,9 +64,15 @@ day: jour
 days: jours
 Day: Jour
 Days: Jours
-dose: dose
-Dose: Dose
-
+dose: "Posologie"
+day.1: "Lundi"
+day.2: "Mardi"
+day.3: "Mercredi"
+day.4: "Jeudi"
+day.5: "Vendredi"
+day.6: "Samedi"
+day.7: "Dimanche"
+day.0: "Tous les jours"
 
 Do you confirme the deletion of your account: Confirmez-vous la suppression définitive de votre compte
 do you confirme the deletion of your account: confirmez-vous la suppression définitive de votre compte
