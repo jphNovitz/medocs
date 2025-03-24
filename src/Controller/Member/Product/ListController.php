@@ -9,9 +9,11 @@ namespace App\Controller\Member\Product;
 
 use App\Entity\Dose;
 use App\Entity\Line;
+use App\Entity\Product;
 use App\Form\DeleteFormType;
 use App\Form\DoseType;
 use App\Form\LineType;
+use App\Form\ProductType;
 use App\Repository\LineRepository;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Exception\DriverException;
@@ -53,6 +55,9 @@ class ListController extends AbstractController
         $dose = new Dose();
         $formDose = $this->createForm(DoseType::class, $dose);
 
+        $product = new Product();
+        $formProduct = $this->createForm(ProductType::class, $product);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,7 +73,8 @@ class ListController extends AbstractController
 
         return $this->Render('member/product/list/new.html.twig', [
             'form' => $form->createView(),
-            'formDose' => $formDose->createView()
+            'formDose' => $formDose->createView(),
+            'formProduct' => $formProduct->createView(),
         ]);
     }
 

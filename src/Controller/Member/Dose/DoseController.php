@@ -60,9 +60,7 @@ class DoseController extends AbstractController
     #[Route('/api/new', name: 'member_dose_api_new', methods: ['POST'])]
     public function new(Request $request): Response
     {
-//        dd($request->getContent());
         $data = json_decode($request->getContent(), true);
-//                dd($data);
         $dose = new Dose();
         if ($data["dose[frequency]"] == "autre") {
             $frequency = new Frequency();

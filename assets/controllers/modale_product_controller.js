@@ -1,7 +1,7 @@
-import { Controller } from '@hotwired/stimulus';
+import {Controller} from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ["container", "form", "frequency", "frequencyNew", "moment", "momentNew"];
+    static targets = ["container", "form", "name"];
 
     open(e) {
         e.preventDefault();
@@ -15,33 +15,17 @@ export default class extends Controller {
     }
 
     connect() {
-            this.frequencyTarget.addEventListener('change', (e)=> {
-                // Si l'option "Autre" est sélectionnée (adaptez l'ID selon votre implémentation)
-                if (e.target.value === 'autre') {
-                    this.frequencyNewTarget.classList.remove('hidden');
-                } else {
-                    this.frequencyNewTarget.classList.add('hidden');
-                }
-            });
-            this.momentTarget.addEventListener('change', (e)=> {
-                // Si l'option "Autre" est sélectionnée (adaptez l'ID selon votre implémentation)
-                if (e.target.value === 'autre') {
-                    this.momentNewTarget.classList.remove('hidden');
-                } else {
-                    this.momentNewTarget.classList.add('hidden');
-                }
-            });
     }
 
 
     async submit(event) {
         event.preventDefault();
 
-        const csrfToken = document.getElementById('dose__token').value;
+        const csrfToken = document.getElementById('product__token').value;
         const formData = new FormData(this.formTarget);
-
+        console.log(JSON.stringify(Object.fromEntries(formData)))
         try {
-            const response = await fetch('/admin/dose/api/new', {
+            const response = await fetch('/member/product/api/new\n', {
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
@@ -53,7 +37,7 @@ export default class extends Controller {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                const select = document.querySelector('#line_dose');
+                const select = document.querySelector('#line_product');
                 select.options.add(new Option(data.data.name, data.data.id, true, true));
                 this.close();
                 this.formTarget.reset();

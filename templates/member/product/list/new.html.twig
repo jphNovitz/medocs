@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <section class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose') }}>
+    <section class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose modale-product') }}>
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
 
@@ -36,9 +36,10 @@
                         </div>
                         <div class="w-full md:w-20 items-center">
                             <div>&nbsp;</div>
-                            <a href="{{ path('member_product_new') }}" title="ajouter un produit"
-                               class="inline-block w-full bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
-                                Ajouter </a>
+                            <button {{ stimulus_action('modale-product', 'open', 'click', ) }}
+                                    class="inline-block w-full md:w-20 bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                                Ajouter
+                            </button>
                         </div>
                     </div>
                     {#                 END   Quantiy / product / add  #}
@@ -84,7 +85,8 @@
                 </div>
             </div>
             {{ form_end(form) }}
-            <!-- Modale  -->
+
+            <!-- Modale for dose / posologie -->
             <div {{ stimulus_target('modale-dose', 'container' ) }}
                     class="fixed inset-0 bg-gray-600 bg-opacity-60 hidden items-center justify-center z-50">
 
@@ -131,6 +133,31 @@
                         Ajouter
                     </button>
                     {{ form_end(formDose) }}
+                </div>
+
+            </div>
+
+            <!-- Modale for product -->
+            <div {{ stimulus_target('modale-product', 'container' ) }}
+                    class="fixed inset-0 bg-gray-600 bg-opacity-60 hidden items-center justify-center z-50">
+
+                <div class="w-full md:w-96 p-4 flex flex-col space-y-8 bg-surface-light dark:bg-surface-dark p-4 rounded shadow-lg">
+                    {{ form_start(formProduct, {'attr': {'data-modale-product-target': 'form'}}) }}
+                    <twig:title:h3>Ajoutez un produit</twig:title:h3>
+                    <div class="space-y-4">
+                        {{ form_label(formProduct.name, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                        {{ form_widget(formProduct.name, {'attr': {
+                            'data-modale-product-target': "name",
+                            'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                        }}) }}
+                    </div>
+
+                    <button {{ stimulus_action('modale-product', 'submit', 'click', ) }}
+                            {#                                href="{{ path('member_dose_new') }}" #}
+                            class="inline-block w-full md:w-20 bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                        Ajouter
+                    </button>
+                    {{ form_end(formProduct) }}
                 </div>
 
             </div>
