@@ -6,11 +6,12 @@
 
 {% block body %}
 
-    <section class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose modale-product') }}>
+    <section
+            class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose modale-product') }}>
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
 
-                <twig:title:h2 class="p-4"> Ajouter</twig:title:h2>
+                <twig:title:h2 class="p-4">Ajouter</twig:title:h2>
 
                 {{ form_start(form, {'class': 'w-full'}) }}
                 <div class="p-4 flex flex-col space-y-8">
@@ -18,70 +19,62 @@
                     <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <div class="w-full flex  md:flex-1 items-center space-x-4">
                             <div class="w-16">
-                                {{ form_label(form.qty, 'Q', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                                {{ form_label(form.qty, 'Q', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
                                 {{ form_widget(form.qty, {
                                     'type':'number',
                                     'attr': {
                                         'min': 0.5,
                                         'max': 10,
                                         'step': 0.5,
-                                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                        'class': 'form-control bg-base-light/50 border border-gray-300 font-semibold text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
                                     }}) }}
 
                             </div>
                             <div class="flex flex-col flex-1">
-                                {{ form_label(form.product, 'Produits') }}
-                                {{ form_widget(form.product, {'attr': {'class': 'form-control bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                                {{ form_label(form.product, 'Produits', {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                                {{ form_widget(form.product, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
                             </div>
                         </div>
                         <div class="w-full md:w-20 items-center">
-                            <div>&nbsp;</div>
-                            <button {{ stimulus_action('modale-product', 'open', 'click', ) }}
-                                    class="inline-block w-full md:w-20 bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
-                                Ajouter
-                            </button>
+                            <div class="p-2.5">
+                                &nbsp;
+                            </div>
+                            <twig:button:action attributes="{{ stimulus_action('modale-product', 'open', 'click') }}">
+                                Ajouter un produit
+                            </twig:button:action>
                         </div>
                     </div>
                     {#                 END   Quantiy / product / add  #}
                     <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <div class="w-full space-y-4 flex flex-col">
-                            {{ form_label(form.day, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-base-light/50 border-2 border-gray-300 text-content-dark/90 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {{ form_label(form.day, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
                                 {% for checkbox in form.day %}
-                                    <div>
+                                    <div class="flex items-center space-x-4">
                                         {{ form_widget(checkbox) }}
                                         {{ form_label(checkbox) }}
                                     </div>
                                 {% endfor %}
                             </div>
-                            {#                        {{ form_widget(form.day, {'attr': {'class': 'grid grid-cols-2 gap-4 bg-base-light/50 border-2 border-gray-300 text-content-dark/90 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }} #}
-                        </div>
-                        <div>
-                            explic
                         </div>
                     </div>
-                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4" >
+                    <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <div class="flex flex-col flex-1">
-                            {{ form_label(form.dose, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                            {{ form_label(form.dose, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
                             {{ form_widget(form.dose, {'attr': {
-                                'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
                             }}) }}
                         </div>
                         <div class="w-full md:w-20 items-center">
-                            <div>&nbsp;</div>
-                            <button {{ stimulus_action('modale-dose', 'open', 'click', ) }}
-                                    {#                                href="{{ path('member_dose_new') }}" #}
-                                    class="inline-block w-full md:w-20 bg-base-light/80 capitalize text-center font-semibold hover:underline underline-offset-8  drop-shadow-lg border border-gray-300 text-content-primary-light  rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/70 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                            <div class="p-2.5">&nbsp;</div>
+                            <twig:button:action attributes="{{ stimulus_action('modale-dose', 'open', 'click') }}">
                                 Ajouter
-                            </button>
+                            </twig:button:action>
                         </div>
-
-
                     </div>
-                </div>
-                <div class="form-row">
-                    {% block submit %} <input type="submit" class="btn auto-min bg-primary text-white"
-                                              value="Ajouter">{% endblock %}
+                    <div class="form-row">
+                        <twig:button:submit>Ajouter à ma liste</twig:button:submit>
+                    </div>
                 </div>
             </div>
             {{ form_end(form) }}
