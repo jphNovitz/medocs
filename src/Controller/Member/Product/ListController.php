@@ -85,6 +85,15 @@ class ListController extends AbstractController
             $this->$this->addFlash('error', 'N\'existe pas');
             return $this->RedirectToRoute("member_line_index");
         }
+
+        $form = $this->createForm(LineType::class, $line);
+
+        $dose = new Dose();
+        $formDose = $this->createForm(DoseType::class, $dose);
+
+        $product = new Product();
+        $formProduct = $this->createForm(ProductType::class, $product);
+
         $form = $this->createForm(LineType::class, $line, [
             'method' => 'PUT'
         ]);
@@ -94,7 +103,7 @@ class ListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $this->entityManager->flush();
-                $this->$this->addFlash('success', 'modifié');
+                $this->addFlash('success', 'modifié');
 
                 return $this->RedirectToRoute("member_line_index");
 
@@ -105,6 +114,8 @@ class ListController extends AbstractController
 
         return $this->Render('member/product/list/update.html.twig', [
             'form' => $form->createView(),
+            'formDose' => $formDose->createView(),
+            'formProduct' => $formProduct->createView(),
         ]);
     }
 

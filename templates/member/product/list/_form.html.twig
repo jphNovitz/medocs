@@ -1,0 +1,159 @@
+<section
+        class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose modale-product') }}>
+    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
+
+            <twig:title:h2 class="p-4">Ajouter</twig:title:h2>
+
+            {{ form_start(form, {'class': 'w-full'}) }}
+            <div class="p-4 flex flex-col space-y-8">
+                {#                    Quantiy / product / add  #}
+                <div class="w-full flex flex-col items-end  md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="w-full flex  md:flex-1 items-center space-x-4">
+                        <div class="w-16">
+                            {{ form_label(form.qty, 'Q', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.qty, {
+                                'type':'number',
+                                'attr': {
+                                    'min': 0.5,
+                                    'max': 10,
+                                    'step': 0.5,
+                                    'class': 'form-control bg-base-light/50 border border-gray-300 font-semibold text-content-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                }}) }}
+
+                        </div>
+                        <div class="flex flex-col flex-1">
+                            {{ form_label(form.product, 'Produits', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.product, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        </div>
+                    </div>
+                    <div class="w-full md:w-20 items-center">
+                        <div class="p-2.5">
+                            &nbsp;
+                        </div>
+                        <twig:button:action attributes="{{ stimulus_action('modale-product', 'open', 'click') }}">
+                            Ajouter un produit
+                        </twig:button:action>
+                    </div>
+                </div>
+                {#                 END   Quantiy / product / add  #}
+                <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="w-full space-y-4 flex flex-col">
+                        {{ form_label(form.days, null, {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
+                            {% for checkbox in form.days %}
+                                <div class="flex items-center space-x-4">
+                                    {{ form_widget(checkbox) }}
+                                    {{ form_label(checkbox) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col items-end md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flex flex-col flex-1">
+                        {{ form_label(form.dose, null, {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                        {{ form_widget(form.dose, {'attr': {
+                            'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                        }}) }}
+                    </div>
+                    <div class="w-full md:w-20 items-center">
+                        <div class="p-2.5">&nbsp;</div>
+                        <twig:button:action attributes="{{ stimulus_action('modale-dose', 'open', 'click') }}">
+                            Ajouter
+                        </twig:button:action>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <twig:button:submit> {{ button_label|default('Save')|trans }} </twig:button:submit>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+        <!-- Modale for dose / posologie -->
+        <div {{ stimulus_target('modale-dose', 'container' ) }}
+                class="fixed inset-0 bg-gray-600 bg-opacity-60 hidden items-center justify-center z-50">
+
+            <div class="w-full md:w-96 p-4 flex flex-col space-y-8 bg-surface-light dark:bg-surface-dark p-4 rounded shadow-lg p-6">
+                {{ form_start(formDose, {'attr': {'data-modale-dose-target': 'form'}}) }}
+                <div class="flex justify-between items-center">
+                    <twig:title:h3>A quelle frequence ?</twig:title:h3>
+                    <span class="cursor-pointer" {{ stimulus_action('modale-dose', 'close', 'click') }}>
+                        <twig:ux:icon name="si:close-duotone"
+                                      class="w-6 text-content-primary-light/70 dark:text-content-primary-dark/70"/>
+                        </span>
+                </div>
+
+                <div class="p-2.5 space-y-4">
+                    {{ form_label(formDose.frequency, 'Fréquence', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                    {{ form_widget(formDose.frequency, {'attr': {
+                        'data-modale-dose-target': "frequency",
+                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light/80 rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/80 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                    }}) }}
+                </div>
+                <div {{ stimulus_target('modale-dose', 'frequencyNew') }} class="p-2.5 space-y-4 hidden">
+                    {{ form_label(formDose.frequencyNew.name, 'Nouvelle fréquence', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                    {{ form_widget(formDose.frequencyNew.name, {'attr': {
+                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light/80 rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/80 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                    }}) }}
+                </div>
+
+
+                <twig:title:h3>Moment de la journée</twig:title:h3>
+                <div class="p-2.5 space-y-4">
+                    {{ form_label(formDose.moment, 'Moment', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                    {{ form_widget(formDose.moment, {'attr': {
+                        'data-modale-dose-target': "moment",
+                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light/80 rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/80 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                    }}) }}
+                </div>
+                <div {{ stimulus_target('modale-dose', 'momentNew') }} class="p-2.5 space-y-4 hidden">
+                    {{ form_label(formDose.momentNew.name, 'Nouveau moment', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80'}}) }}
+                    {{ form_widget(formDose.momentNew.name, {'attr': {
+                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-light/80 rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/80 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                    }}) }}
+                </div>
+
+                <div class="p-2.5">
+                    <twig:button:action attributes="{{ stimulus_action('modale-dose', 'submit', 'click') }}">
+                        Ajouter
+                    </twig:button:action>
+                </div>
+
+                {{ form_end(formDose) }}
+            </div>
+
+        </div>
+
+        <!-- Modale for product -->
+        <div {{ stimulus_target('modale-product', 'container' ) }}
+                class="fixed inset-0 bg-gray-600 bg-opacity-80 hidden items-center justify-center z-50">
+
+            <div class="w-full md:w-96 p-4 flex flex-col space-y-8 bg-surface-light dark:bg-surface-dark p-4 rounded shadow-lg p-6">
+                {{ form_start(formProduct, {'attr': {'data-modale-product-target': 'form'}}) }}
+                <div class="flex justify-between items-center">
+                    <twig:title:h3>Ajoutez un produit</twig:title:h3>
+                    <span class="cursor-pointer" {{ stimulus_action('modale-product', 'close', 'click') }}>
+                        <twig:ux:icon name="si:close-duotone"
+                                      class="w-6 text-content-primary-light/70 dark:text-content-primary-dark/70"/>
+                        </span>
+                </div>
+                <div class="p-2.5 space-y-4">
+                    {{ form_label(formProduct.name, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2'}}) }}
+                    {{ form_widget(formProduct.name, {'attr': {
+                        'data-modale-product-target': "name",
+                        'class': 'form-control bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                    }}) }}
+                </div>
+                <div class="p-2.5">
+                    <twig:button:action attributes="{{ stimulus_action('modale-product', 'submit', 'click') }}">
+                        Ajouter
+                    </twig:button:action>
+                </div>
+                {{ form_end(formProduct) }}
+            </div>
+
+        </div>
+    </div>
+</section>

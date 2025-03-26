@@ -28,6 +28,7 @@ form:
   agree: "J'accepte les conditions d'utilisation"
   already_registered: "Déjà inscrit ?"
   not_registered: "Pas encore inscrit ?"
+
 login: connexion
 Login: Connexion
 logout: déconnexion
@@ -110,3 +111,5 @@ footer:
 button:
   add: "Ajouter un produit"
   new: "Ajouter un produit"
+  line.update: "Mettre à jour"
+  line.add: "Ajouter à la liste"
