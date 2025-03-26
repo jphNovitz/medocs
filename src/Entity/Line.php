@@ -31,8 +31,7 @@ class Line
     private float $qty = 1;
 
     #[ORM\Column(type: "json", nullable: false)]
-    private array $day = [];
-
+    private array $days = [];
 
 
     public function getId(): ?int
@@ -99,17 +98,15 @@ class Line
         return $this;
     }
 
-    public function getDay(): array
+    public function getDays(): array
     {
-        return $this->day;
+        return $this->days;
     }
 
-    public function setDay(array $day): static
+    public function setDays(array $days): static
     {
-        $this->day = $day;
+        $this->days = $days;
 
         return $this;
     }
-
-
 }
