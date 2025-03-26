@@ -47,9 +47,9 @@
                     {#                 END   Quantiy / product / add  #}
                     <div class="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <div class="w-full space-y-4 flex flex-col">
-                            {{ form_label(form.day, null, {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_label(form.days, null, {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring">
-                                {% for checkbox in form.day %}
+                                {% for checkbox in form.days %}
                                     <div class="flex items-center space-x-4">
                                         {{ form_widget(checkbox) }}
                                         {{ form_label(checkbox) }}

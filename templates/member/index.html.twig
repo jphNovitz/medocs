@@ -14,7 +14,8 @@
                 <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
                     data-tabs-toggle="#default-tab-content" role="tablist">
                     <li class="me-2 border-b-2 border-surface-dark dark:border-surface-light/60" role="presentation">
-                        <button href="#" class="inline-block p-4 rounded-t-lg" id="qr-tab"
+                        <button  class="inline-block p-4 rounded-t-lg" id="qr-tab"
+                        <button  class="inline-block p-4 rounded-t-lg" id="qr-tab"
                                 data-tabs-target="#qr" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'qr' }) }}
                                 type="button" role="tab" aria-controls="profile" aria-selected="false"
                                 data-tabs-active-class="border-content-primary-light/80 dark:border-content-primary-dark/80">
@@ -22,14 +23,14 @@
                         </button>
                     </li>
                     <li class="me-2" role="presentation">
-                        <button href="#" class="inline-block p-4  rounded-t-lg" id="url-tab"
+                        <button class="inline-block p-4  rounded-t-lg" id="url-tab"
                                 data-tabs-target="#url" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'url' }) }}
                                 type="button" role="tab" aria-controls="profile" aria-selected="false">
                             {% trans %}title.myurl{% endtrans %}
                         </button>
                     </li>
                     <li class="me-2" role="presentation">
-                        <button href="#" class="inline-block p-4 rounded-t-lg" id="send-tab"
+                        <button class="inline-block p-4 rounded-t-lg" id="send-tab"
                                 data-tabs-target="#send" {{ stimulus_action('tabs', 'show', 'click', { 'tab': 'send' }) }}
                                 type="button" role="tab" aria-controls="profile" aria-selected="false">
                             {% trans %}title.sendlist{% endtrans %}
@@ -126,8 +127,15 @@
 
         {% embed "_template-parts/_lines-list.html.twig" %}
             {% block button_action %}
-                <a href="{{ path('member_line_new') }}" class="bt bg-info text-info p06 radius-5p margin-horizontal-2 ">
-                    Ajouter</a>
+                <a href="{{ path('member_line_new') }}"
+                   class="flex items-center justify-center text-content-primary-dark bg-surface-dark hover:bg-surface-dark/80 focus:ring-4 focus:ring-surface-dark/30 font-medium rounded-lg text-sm px-4 py-2 dark:text-content-primary-light dark:bg-surface-light/60 dark:hover:bg-surface-light/70 focus:outline-none dark:focus:ring-surface-light/80">
+                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                    </svg>
+                    {% trans %} button.add{% endtrans %}
+                </a>
             {% endblock %}
         {% endembed %}
     {% endif %}
