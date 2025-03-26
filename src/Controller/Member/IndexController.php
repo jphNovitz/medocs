@@ -57,6 +57,7 @@ class IndexController extends AbstractController
             $this->addFlash('success', 'URL mise à jour avec succès.');
             return $this->redirectToRoute('member_index');
         }
+        
         return $this->render('member/index.html.twig', [
             'list' => $products,
             'url_form' => $urlForm,
