@@ -23,7 +23,7 @@ class LineType extends AbstractType
             ->add('qty', NumberType::class, ['attr' => [
                 'type' => 'number'
             ]])
-            ->add('day', ChoiceType::class, [
+            ->add('days', ChoiceType::class, [
                 'choices' => [
                     'day.1' => '1',
                     'day.2' => '2',

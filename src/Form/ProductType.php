@@ -18,17 +18,17 @@ class ProductType extends AbstractType
                 'translation_domain' => 'messages',
                 'label' => 'form.product.name',
                 'attr' => [
-                    'placeholder' => 'form.name.placeholder',
+                    'placeholder' => 'form.product.name.placeholder',
                 ]
             ])
-            ->add('comment', TextType::class, [
-                'translation_domain' => 'messages',
-                'label' => 'form.product.comment',
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'form.name.comment',
-                ]
-            ])//->add('envoi', SubmitType::class)
+//            ->add('comment', TextType::class, [
+//                'translation_domain' => 'messages',
+//                'label' => 'form.product.comment',
+//                'required' => false,
+//                'attr' => [
+//                    'placeholder' => 'form.name.comment',
+//                ]
+//            ])
         ;
     }
 
