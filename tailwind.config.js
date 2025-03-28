@@ -13,7 +13,7 @@ module.exports = {
           "dark": "#001524",
         },
         "surface": {
-          "light": "#E8F4F6",
+          "light": "#F3F8F9",
           // "light": "#F8F9FA",
           "dark": "#15616d",
         },

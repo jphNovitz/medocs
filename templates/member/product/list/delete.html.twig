@@ -1,3 +1,37 @@
-{% extends '../..'%}
-{% set object = 'frequency' %}
-{% block header_h1 %} Fréquence {% endblock %}
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section
+            class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8" {{ stimulus_controller('modale-dose modale-product') }}>
+        <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+            <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
+
+                <twig:title:h2 class="p-4">{{ 'Delete' | trans }}</twig:title:h2>
+
+                {{ form_start(form, {'class': 'w-full'}) }}
+                <div class="p-4 flex flex-col space-y-8">
+                    {#                    Quantiy / product / add  #}
+                    <div class="w-full flex flex-col items-end  md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="w-full flex flex-col  md:flex-1 items-center space-x-4 p-2.5">
+
+                            <div class="w-full block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5"> {{ form.vars.value.message }} </div>
+                            <div class="flex p-8">
+                            <div class="w-16">
+                                <div class="flex flex-col flex-1">
+                                    {{ form_widget(form.yes, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                                </div>
+                            </div>
+                            <div class="w-16">
+                                <div class="flex flex-col flex-1">
+                                    {{ form_widget(form.no, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
