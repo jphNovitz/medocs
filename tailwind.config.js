@@ -8,11 +8,13 @@ module.exports = {
     extend: {colors: {
         "transparent": "transparent",
         "base": {
-          "light": "#ffecd1",
+          "light": "#D1E9ED",
+          // "light": "#ffecd1",
           "dark": "#001524",
         },
         "surface": {
-          "light": "#F8F9FA",
+          "light": "#E8F4F6",
+          // "light": "#F8F9FA",
           "dark": "#15616d",
         },
         "content": {
