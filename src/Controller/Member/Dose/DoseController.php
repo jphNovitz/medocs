@@ -150,7 +150,7 @@ class DoseController extends AbstractController
                 return $this->redirectToRoute("member_dose_index");
             endif;
         }
-        return $this->render('admin/dose/dose/delete.html.twig', [
+        return $this->render('member/dose/dose/delete.html.twig', [
             'form' => $form->createView()
         ]);
     }
