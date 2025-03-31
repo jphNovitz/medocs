@@ -16,22 +16,22 @@ class Line
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Dose", inversedBy: "line")]
-    #[ORM\JoinColumn(onDelete: "SET NULL")]
+    #[ORM\JoinColumn(nullable: false)]
     private Dose $dose;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Product")]
-    #[ORM\JoinColumn(onDelete: "SET NULL")]
+    #[ORM\JoinColumn(nullable: false)]
     private Product $product;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "lines")]
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private User $user;
 
-    #[ORM\Column(type: "float", scale: 1, nullable: true)]
+    #[ORM\Column(type: "float", scale: 1, nullable: false)]
     private float $qty = 1;
 
     #[ORM\Column(type: "json", nullable: false)]
-    private array $days = [];
+    private array $days = [0];
 
 
     public function getId(): ?int
