@@ -5,15 +5,18 @@
 {% block title %}Modifier un médicament dans la liste{% endblock %}
 
 {% block body %}
-{% include 'member/product/list/_form.html.twig' with {'button_label': 'button.line.update'} %}
-{#{% block header_h1 %} Médicaments dans la liste{% endblock %}#}
-{#{% block comment %} {% endblock %}#}
-{#{% block card_title %} Modifier {% endblock %}#}
-{#{% block submit %}#}
-{#    <div class="flow-row">#}
-{#        <input type="submit" class="btn auto-min bg-primary text-white" value="Modifier" style="margin-right: 1rem">#}
-{#        <a href="{{ path('member_line_new')}}" class="submit btn auto-min bg-primary-lighter text-primary">#}
-{#            Ajouter#}
-{#        </a>#}
-{#    </div>#}
+    {% include 'member/product/list/_form.html.twig' with {
+        'button_label': 'button.line.update',
+        'button_cancel_label': 'button.cancel_label'
+    } %}
+    {# {% block header_h1 %} Médicaments dans la liste{% endblock %} #}
+    {# {% block comment %} {% endblock %} #}
+    {# {% block card_title %} Modifier {% endblock %} #}
+    {# {% block submit %} #}
+    {#    <div class="flow-row"> #}
+    {#        <input type="submit" class="btn auto-min bg-primary text-white" value="Modifier" style="margin-right: 1rem"> #}
+    {#        <a href="{{ path('member_line_new')}}" class="submit btn auto-min bg-primary-lighter text-primary"> #}
+    {#            Ajouter #}
+    {#        </a> #}
+    {#    </div> #}
 {% endblock %}
