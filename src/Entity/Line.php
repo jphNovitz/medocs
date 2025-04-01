@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LineRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LineRepository::class)]
 class Line
@@ -17,10 +16,12 @@ class Line
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Dose", inversedBy: "line")]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "Veuillez sélectionner une Posologie.")]
     private Dose $dose;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\Product")]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "Veuillez sélectionner un produit.")]
     private Product $product;
 
     #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: "lines")]

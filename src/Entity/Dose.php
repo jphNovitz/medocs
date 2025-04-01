@@ -28,7 +28,7 @@ class Dose
     #[ORM\JoinColumn(onDelete: "SET NULL")]
     private ?Moment $moment;
 
-    #[ORM\OneToMany(targetEntity: "App\Entity\Line", mappedBy: "dose", orphanRemoval: true, cascade: ["remove"])]
+    #[ORM\OneToMany(mappedBy: "dose", targetEntity: "App\Entity\Line", cascade: ["remove"], orphanRemoval: true)]
     private $line;
 
     public function __construct()
