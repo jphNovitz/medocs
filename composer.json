@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
         "endroid/qr-code-bundle": "^4.0",
+        "karser/karser-recaptcha3-bundle": "^0.2.1",
         "league/html-to-markdown": "^5.0",
         "sensio/framework-extra-bundle": "^6.1",
         "stof/doctrine-extensions-bundle": "^1.6",

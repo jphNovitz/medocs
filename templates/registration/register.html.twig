@@ -73,6 +73,9 @@
                             </div>
                         {% endif %}
                     </div>
+                    <div>
+                        {{ form_row(registrationForm.captcha) }}
+                    </div>
 
 
                     <twig:button:submit class="md:w-full">{% trans %}signin {% endtrans %}</twig:button:submit>
