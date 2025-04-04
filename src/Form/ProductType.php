@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
@@ -21,18 +21,10 @@ class ProductType extends AbstractType
                     'placeholder' => 'form.product.name.placeholder',
                 ]
             ])
-//            ->add('comment', TextType::class, [
-//                'translation_domain' => 'messages',
-//                'label' => 'form.product.comment',
-//                'required' => false,
-//                'attr' => [
-//                    'placeholder' => 'form.name.comment',
-//                ]
-//            ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Product::class,

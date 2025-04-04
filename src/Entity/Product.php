@@ -11,17 +11,24 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: "string", length: 200, nullable: false)]
-    private $name;
-
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private $comment;
+    private string $name;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return Product
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -36,20 +43,9 @@ class Product
         return $this;
     }
 
-    public function getComment(): ?string
-    {
-        return $this->comment;
-    }
-
-    public function setComment(?string $comment): self
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->name;
     }
+
 }
