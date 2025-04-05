@@ -58,11 +58,10 @@ export default class extends Controller {
                 this.close();
                 this.formTarget.reset();
             } else {
-                console.log('Erreur:', data);
                 alert(data.message || 'Erreur côté serveur.');
             }
         } catch (error) {
-            console.error('Erreur réseau:', error);
+            console.error('Erreur réseau:');
             alert('Une erreur est survenue. Veuillez réessayer.');
         }
     }
