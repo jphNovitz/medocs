@@ -41,7 +41,7 @@ export default class extends Controller {
         const formData = new FormData(this.formTarget);
 
         try {
-            const response = await fetch('/admin/dose/api/new', {
+            const response = await fetch('/member/dose/api/new', {
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
@@ -58,6 +58,7 @@ export default class extends Controller {
                 this.close();
                 this.formTarget.reset();
             } else {
+                console.log('Erreur:', data);
                 alert(data.message || 'Erreur côté serveur.');
             }
         } catch (error) {
