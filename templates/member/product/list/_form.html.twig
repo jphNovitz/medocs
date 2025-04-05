@@ -66,7 +66,8 @@
                 </div>
                 <div class="form-row flex space-x-8">
                     <twig:button:submit> {{ button_label|default('Save')|trans }} </twig:button:submit>
-                    <twig:button:secondary href="{{ path('member_line_index') }}"> {{ button_cancel_label|default('Cancel')|trans }} </twig:button:secondary>
+                    <twig:button:secondary
+                            href="{{ path('member_line_index') }}"> {{ button_cancel_label|default('Cancel')|trans }} </twig:button:secondary>
                 </div>
             </div>
         </div>
