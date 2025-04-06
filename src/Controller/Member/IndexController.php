@@ -34,8 +34,9 @@ class IndexController extends AbstractController
 #[Route('/', name:'member_index')]
     public function index(Request $request): Response
     {
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id'=> $this->getUser()]);
+        $user = $this->getUser();
         $products = $this->lineRepository->getAllUserLines($this->getUser());
+
         $urlForm = $this->createForm(UrlType::class, null, [
             'url' => $this->getUser()->getUrl()
         ]);
@@ -46,7 +47,7 @@ class IndexController extends AbstractController
             $user->setUrl( $urlForm->get('url')->getData());
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'URL mise à jour avec succès.');
+            $this->addFlash('success', 'url.updated');
             return $this->redirectToRoute('member_index');
         }
 
@@ -54,7 +55,7 @@ class IndexController extends AbstractController
 
         if ($sendForm->isSubmitted() && $urlForm->isValid()) {
             die('to do send email');
-            $this->addFlash('success', 'URL mise à jour avec succès.');
+            $this->addFlash('success', 'list.sent');
             return $this->redirectToRoute('member_index');
         }
         

@@ -97,7 +97,8 @@ Here is your information: Voici vos informations
 they have been deleted: elles ont été supprimées
 They have been deleted: Elles ont été supprimées
 Here is your information, they have been deleted: Voici vos informations, elles ont été supprimées
-
+url.updated: "URL mise à jour avec succès."
+list.sent: "Liste envoyée avec succès."
 hero:
   h1: "Gérez Vos Médicaments en Toute Simplicité"
   p: "Medocs.be, votre assistant santé numérique. Inscrivez-vous en une minute, enregistrez et partagez vos prescriptions facilement, où que vous soyez."
