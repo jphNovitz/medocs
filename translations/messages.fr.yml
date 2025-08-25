@@ -36,6 +36,7 @@ Logout: Déconnexion
 register: s'enregistrer
 Register: S'enregistrer
 Sign up: "S'inscrire"
+signup: "S'inscrire"
 signin: Conexion
 Forgot password: Mot de passe oublié
 forgot password: mot de passe oublié
@@ -115,3 +116,17 @@ button:
   line.update: "Mettre à jour"
   line.add: "Ajouter à la liste"
   cancel_label: "Retourner à la liste"
+  cta.register: "Je dis adieu aux listes papier"
+  cta.login: "J'accède à ma liste"
+
+placeholder:
+  login:
+    email: "Votre adresse email"
+    password: "Votre mot de passe"
+  register:
+    email: "Votre adresse email"
+    password: "Votre mot de passe"
+    repeat_password: "Répétez votre mot de passe"
+  search: "Rechercher un médicament par nom ou code barre"
+  barcode: "Scannez le code barre"
+  qrcode: "Scannez le code QR"

@@ -39,7 +39,7 @@
                                    class="block mb-2 text-sm font-medium text-content-light dark:text-content-primary-dark/80"> {% trans %} form.email {% endtrans %}</label>
                             <input type="email" name="_username" id="_username"
                                    class="form-control bg-base-light/10 border border-gray-300 text-content-light rounded-lg focus:ring-base-light focus:border-base-light block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-dark/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring"
-                                   placeholder="name@company.com" required autofocus>
+                                   placeholder="{{ 'placeholder.login.email' |trans }}" required autofocus>
                         </div>
                         <div>
                             <label for="_password"
@@ -65,7 +65,7 @@
                         <p class="text-sm font-light text-content-primary-light/60 dark:text-content-primary-dark/50">
                             {% trans %} form.not_registered{% endtrans %}
                             <a href="{{ path('app_register') }}"
-                               class="font-medium text-primary-600 hover:underline dark:text-primary-500">{% trans %}signup {% endtrans %}</a>
+                               class="font-medium text-primary-600 hover:underline dark:text-primary-500">{{ "signup" |trans }}</a>
                         </p>
                         <input type="hidden" name="_csrf_token"
                                value="{{ csrf_token('authenticate') }}"
