@@ -1,0 +1,29 @@
+<!-- Modale for product -->
+<div {{ stimulus_target('modale-product', 'container' ) }}
+        class="fixed inset-0 bg-gray-600 bg-opacity-80 hidden items-center justify-center z-50">
+
+    <div class="w-full md:w-96 p-4 flex flex-col space-y-8 bg-surface-light dark:bg-surface-dark p-4 rounded shadow-lg p-6">
+        {{ form_start(formProduct, {'attr': {'data-modale-product-target': 'form'}}) }}
+        <div class="flex justify-between items-center">
+            <twig:title:h3>Ajoutez un produit</twig:title:h3>
+            <span class="cursor-pointer" {{ stimulus_action('modale-product', 'close', 'click') }}>
+                        <twig:ux:icon name="si:close-duotone"
+                                      class="w-6 text-content-primary-light/70 dark:text-content-primary-dark/70"/>
+                        </span>
+        </div>
+        <div class="p-2.5 space-y-4">
+            {{ form_label(formProduct.name, null, {'label_attr': {'class': 'block text-sm font-medium text-content-light dark:text-content-primary-dark/80 p-2'}}) }}
+            {{ form_widget(formProduct.name, {'attr': {
+                'data-modale-product-target': "name",
+                'class': 'form-control bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-light/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+            }}) }}
+        </div>
+        <div class="p-2.5">
+            <twig:button:action attributes="{{ stimulus_action('modale-product', 'submit', 'click') }}">
+                Ajouter
+            </twig:button:action>
+        </div>
+    </div>
+    {{ form_end(formProduct) }}
+
+</div>

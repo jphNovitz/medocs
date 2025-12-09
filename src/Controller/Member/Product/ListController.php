@@ -48,9 +48,33 @@ class ListController extends AbstractController
     #[Route('/new', name: "member_line_new")]
     public function new(Request $request): Response
     {
-        $this->requestStack->getCurrentRequest()->getSession()->remove('referer');
+        // Stocker le referer s'il existe et qu'il n'est pas déjà en session
+        $session = $request->getSession();
+        if (!$session->has('referer') && $request->headers->get('referer')) {
+            $session->set('referer', $request->headers->get('referer'));
+        }
+
         $line = new Line();
         $form = $this->createForm(LineType::class, $line);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $line->setUser($this->getUser());
+            $this->entityManager->persist($line);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Ligne ajoutée');
+
+            // Récupérer et supprimer le referer
+            $referer = $session->get('referer');
+            $session->remove('referer');
+
+            // Rediriger vers le referer ou une route par défaut
+            if ($referer) {
+                return $this->redirect($referer);
+            }
+
+            return $this->redirectToRoute('member_line_index'); // Route par défaut
+        }
 
         $dose = new Dose();
         $formDose = $this->createForm(DoseType::class, $dose);
@@ -58,20 +82,7 @@ class ListController extends AbstractController
         $product = new Product();
         $formProduct = $this->createForm(ProductType::class, $product);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-    
-                $line->setUser($this->getUser());
-                $this->entityManager->persist($line);
-                $this->entityManager->flush();
-                $this->addFlash('success', 'Ligne ajouté');
-
-                return $this->RedirectToRoute('member_line_new');
-
-        }
-
-        return $this->Render('member/product/list/new.html.twig', [
+        return $this->render('member/product/list/new.html.twig', [
             'form' => $form->createView(),
             'formDose' => $formDose->createView(),
             'formProduct' => $formProduct->createView(),

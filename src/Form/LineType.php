@@ -38,8 +38,10 @@ class LineType extends AbstractType
                 'multiple' => true,
             ])
             ->add('dose', EntityType::class, [
-                'label' => 'dose',
-                'class' => Dose::class
+                'label' => 'Posologie',
+                'class' => Dose::class,
+                'placeholder' => 'Sélectionnez une posologie',
+                'required' => false,
             ])
             /*           ->add('doseNew', DoseType::class, array(
                            'required' => FALSE,

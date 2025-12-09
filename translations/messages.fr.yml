@@ -114,7 +114,7 @@ button:
   add: "Ajouter un produit"
   new: "Ajouter un produit"
   line.update: "Mettre à jour"
-  line.add: "Ajouter à la liste"
+  line.add: "Ajouter"
   cancel_label: "Retourner à la liste"
   cta.register: "Je dis adieu aux listes papier"
   cta.login: "J'accède à ma liste"

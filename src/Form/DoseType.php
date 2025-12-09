@@ -50,12 +50,6 @@ class DoseType extends AbstractType
         $choices_moment['Autre'] = 'autre';
 
         $builder
-//            ->add('frequency', EntityType::class, [
-//                'class' => Frequency::class,
-//                'choice_label' => 'name',
-//                'placeholder' => 'Choisir une fréquence',
-//                'required' => true,
-//            ])
             ->add('frequency', ChoiceType::class, [
                 'choices' => $choices_frequency,
                 'placeholder' => 'Choisir une fréquence',
@@ -82,18 +76,6 @@ class DoseType extends AbstractType
                     'placeholder' => 'Saisissez une nouvelle fréquence'
                 ],
             ))
-//            ->add('moment', EntityType::class, [
-//                'class' => Moment::class,
-//                'choice_label' => 'name'
-//            ])
-//            ->add('momentNew', MomentType::class, array(
-//                'required' => FALSE,
-//                'mapped' => FALSE,
-//                'property_path' => 'item',
-//            ))
-//            ->add('submit', SubmitType::class, [
-//                'label' => 'Save',
-//            ])
         ;
 
 
