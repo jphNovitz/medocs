@@ -1,6 +1,6 @@
 <?php
 /**
- * @author novitz jean-philippe <hello@jphnovitz.be>
+ * @author novitz jean-philippe <bonjour@jphiweb.be>
  * @copyright 2021-2022
  */
 
@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/member/dose')]
 class DoseController extends AbstractController
