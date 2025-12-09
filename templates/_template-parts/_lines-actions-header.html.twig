@@ -39,7 +39,7 @@
                 <div class="w-full flex flex-col justify-center items-start lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 p-4">
                     <p class="mb-4">En cas de besoin, faites scanner ce QR code pour partager à votre liste de
                         médicaments.</p>
-                    <p><strong>Astuce: </strong> faites une capture d'écran !</p>
+                    <p><strong>Astuce: </strong><br class="hidden md:block"/> faites une capture d'écran !</p>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                         'id': 'emergency'
                     }}) }}
                     <label for="url_url"
-                           class="w-full flex-col md:flex-row justify-start items-center space-x-4 text-content-primary-light/70 dark:text-content-primary-dark/70">
+                           class="w-full block md:inline-flex text-content-primary-light/70 dark:text-content-primary-dark/70">
                         {{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/g/
                         {{ form_widget(url_form.url, {
                             'id': 'url_url',
@@ -74,7 +74,7 @@
                     {{ form_end(url_form) }}
                 </div>
 
-                <div class="w-full flex flex-col justify-start items-center lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 -mt-4 p-4">
+                <div class="w-full flex flex-col justify-center items-start lg:w-1/2 border border-surface-dark dark:border-surface-light/70 text-content-primary-light dark:text-content-primary-dark/80 -mt-4 p-4">
                     <p class="mb-4">Définissez votre pseudo pour rendre votre profil unique</p>
                     <p><strong>En manque d'idées ? </strong> vous avez la possibilité de générer un pseudo
                         aléatoire.</p>
