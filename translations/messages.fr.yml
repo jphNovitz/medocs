@@ -111,13 +111,17 @@ footer:
   pitch: "Medocs.be permet aux personnes agées de mémoriser et transmettre facilement leur liste de médicaments."
 
 button:
+  back_home: "Retour à l'accueil"
   add: "Ajouter un produit"
   new: "Ajouter un produit"
   line.update: "Mettre à jour"
+  update: "Mettre à jour"
   line.add: "Ajouter"
   cancel_label: "Retourner à la liste"
   cta.register: "Je dis adieu aux listes papier"
   cta.login: "J'accède à ma liste"
+  delete: "Supprimer"
+  delete_account: "Supprimer mon compte"
 
 placeholder:
   login:

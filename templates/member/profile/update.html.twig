@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Update my profile {% endtrans %}{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {
+        'class': 'w-full'
+    }}) }}
+
+    <section class="bg-surface-light/50 dark:bg-surface-dark/30 p-3 sm:p-5 space-y-8">
+        <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+            <div class="bg-surface-light dark:bg-surface-dark relative shadow-md sm:rounded-lg overflow-hidden">
+
+                <div class="p-4 flex flex-col space-y-8">
+
+                    <div class="space-y-4">
+                        <twig:title:h2 class="p-0">Modifier mon adresse email</twig:title:h2>
+                        <div class="flex flex-col">
+                            {{ form_label(form.email, null, {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.email, {
+                                'value': app.user.email,
+                                'attr': {
+                                    'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <twig:title:h2 class="p-0">Modifier mon mot de passe</twig:title:h2>
+                        <div class="flex flex-col">
+                            {{ form_label(form.oldPassword, 'Ancien mot de passe', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.oldPassword, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        </div>
+                        <div class="flex flex-col">
+                            {{ form_label(form.plainPassword, 'Nouveau mot de passe', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        </div>
+                        <div class="flex flex-col">
+                            {{ form_label(form.repeatPassword, 'Répétez le mot de passe', {'label_attr': {'class': 'block text-basis font-medium text-content-light dark:text-content-primary-dark/80 p-2.5'}}) }}
+                            {{ form_widget(form.repeatPassword, {'attr': {'class': 'form-control font-semibold bg-base-light/50 border border-gray-300 text-content-primary-light rounded-lg focus:ring-2 focus:ring-base-dark focus:border-base-dark block w-full p-2.5 dark:bg-base/50 dark:border-base-dark/80 dark:placeholder-content-primary-dark/40 dark:text-content-primary-light/90 dark:focus:base-dark/80 dark:focus:border-base-dark/80 focus:ring-base-dark/20 focus:outline-none focus-visible:ring'}}) }}
+                        </div>
+
+                        <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
+                            <a href="{{ path('member_index') }}"
+                               class="inline-flex justify-center items-start text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 underline text-center sm:text-left">
+                                {{ ux_icon('flowbite:arrow-left-outline', {'class': 'w-6'}) }} {{ 'button.back_home'|trans }}
+                            </a>
+
+                            <twig:button:submit>
+                                {{ 'button.update'|trans }}
+                            </twig:button:submit>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    {{ form_end(form) }}
+
+    {% include 'member/profile/_delete.html.twig' %}
+
+
+{% endblock %}

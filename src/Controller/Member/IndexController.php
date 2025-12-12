@@ -20,7 +20,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 #[Route('/member')]
 class IndexController extends AbstractController
@@ -34,7 +34,7 @@ class IndexController extends AbstractController
 #[Route('/', name:'member_index')]
     public function index(Request $request): Response
     {
-        $user = $this->getUser();
+        $user = $this->security->getUser();
         $products = $this->lineRepository->getAllUserLines($this->getUser());
 
         $urlForm = $this->createForm(UrlType::class, null, [
