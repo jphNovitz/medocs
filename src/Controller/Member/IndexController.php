@@ -27,7 +27,8 @@ class IndexController extends AbstractController
 {
 
     public function __construct(private EntityManagerInterface $entityManager,
-                                private LineRepository $lineRepository)
+                                private LineRepository $lineRepository,
+                                private Security $security)
     {
     }
 
